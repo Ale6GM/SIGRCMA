@@ -5,11 +5,14 @@
             <svg class="icon icon-lg">
                 <use xlink:href="{{ asset('icons/coreui.svg#cil-menu') }}"></use>
             </svg>
-        </button>
+        </button>        
         <a class="header-brand d-md-none" href="#">
+            <h6>SIGRCMA</h6>
+            
             <svg width="118" height="46" alt="CoreUI Logo">
-                <use xlink:href="{{ asset('icons/brand.svg#full') }}"></use>
+                
             </svg>
+            
         </a>
         <ul class="header-nav ms-auto">
 
@@ -19,6 +22,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true"
                     aria-expanded="false">
+                    <span class="fw-bold">{{auth()->user()->name}}</span>
                     <div class="avatar">
                         <img class="avatar-img" src="{{ asset('img/default-avatar.jpg') }}"
                             alt="{{ Auth::user()-> email }}">
@@ -29,7 +33,7 @@
                         <svg class="icon me-2">
                             <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
                         </svg>
-                        {{ __('My profile') }}
+                        {{ __('Mi Perfil') }}
                     </a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
@@ -38,7 +42,7 @@
                             <svg class="icon me-2">
                                 <use xlink:href="{{ asset('icons/coreui.svg#cil-account-logout') }}"></use>
                             </svg>
-                            {{ __('Logout') }}
+                            {{ __('Cerrar Sesion') }}
                         </a>
                     </form>
                 </div>

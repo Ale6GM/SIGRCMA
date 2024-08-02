@@ -51,4 +51,10 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    // relacion de uno a muchos con el modelo reportes
+
+    public function reportes() {
+        return $this->hasMany(Reporte::class);
+    }
 }

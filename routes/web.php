@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\EstablecimientoController;
+use App\Http\Controllers\ReporteController;
+use App\Http\Controllers\TecnicoController;
+use App\Http\Controllers\TrabajoController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/about', function () {
@@ -35,7 +40,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Home Routes
          */
         Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
+        Route::resource('clientes', ClienteController::class)->names('admin.clientes');
+        Route::resource('establecimientos', EstablecimientoController::class)->names('admin.establecimientos');
+        Route::resource('tecnicos', TecnicoController::class)->names('admin.tecnicos');
+        Route::resource('reportes', ReporteController::class)->names('admin.reportes');
+        Route::resource('trabajos', TrabajoController::class)->names('admin.trabajos');
         /**
+         * 
          * Role Routes
          */    
         Route::resource('roles', RolesController::class);

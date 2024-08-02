@@ -17,16 +17,23 @@
     @stack('before-styles')
     @vite('resources/sass/app.scss')
     @stack('after-styles')
+    <link rel="stylesheet" href="{{ asset('assets/css/sweetalert2.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/estilos.css') }}">
+    {{-- Libreria de graficos  --}}
+    <script src="{{asset('assets/js/package/dist/chart.umd.js')}}"></script>
 </head>
 
 <body>
     <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+        
         <div class="sidebar-brand d-none d-md-flex">
+            <img style="height: 50px" src="{{ asset('img/Logo2.png') }}" alt="">
+            <h6>SIGRCMA</h6>
             <svg class="sidebar-brand-full" width="118" height="46" alt="CoreUI Logo">
-                <use xlink:href="{{ asset('icons/brand.svg#full') }}"></use>
+                
             </svg>
             <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
-                <use xlink:href="{{ asset('icons/brand.svg#signet') }}"></use>
+                
             </svg>
         </div>
         @include('layouts.navigation')
@@ -43,6 +50,7 @@
                 @include('layouts.includes.errors')
                 <!-- / Errors block -->
                 <div class="mb-4">@yield('content')</div>
+                <div class="mb-4">@yield('script')</div>
             </div>
         </div>
 
@@ -54,8 +62,11 @@
     <!-- Scripts -->
     @stack('before-scripts')
 
+    
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/coreui.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/js/sweetalert2.min.js') }}"></script>
+    
     @vite('resources/js/app.js')
 
     @stack('after-scripts')

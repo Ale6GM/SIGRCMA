@@ -1,0 +1,4 @@
+.alertas:hover {
+    transition: all .3s ease;
+    transform: scale(1.2);
+}
