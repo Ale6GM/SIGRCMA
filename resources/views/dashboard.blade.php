@@ -2,8 +2,8 @@
     <div class="col-sm-6 col-lg-3 alertas">
         <div class="card mb-4 text-white bg-primary">
             <div class="card-body">
-                <div class="fs-4 fw-semibold">Total de Reportes</div>
-                <div>2000</div>
+                <a href="{{route('admin.reportes.index')}}" class="text-white" style="text-decoration: none"><div class="fs-4 fw-semibold">Total de Reportes</div></a>
+                <div>{{$cantidadReportes}}</div>
                 <div class="progress progress-white progress-thin my-2">
                     <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis-inverse">Cantidad Total de Reportes...</small>
@@ -15,7 +15,7 @@
         <div class="card mb-4 text-white bg-warning">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Reportes Pendientes</div>
-                <div>1000</div>
+                <div>{{$cantReportesPendientes}}</div>
                 <div class="progress progress-white progress-thin my-2">
                     <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis-inverse">Cantidad de Reportes Pedientes</small>
@@ -27,7 +27,7 @@
         <div class="card mb-4 text-white bg-danger">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Reportes + 3 días</div>
-                <div>500</div>
+                <div>{{$cantReporteMasTresDias}}</div>
                 <div class="progress progress-white progress-thin my-2">
                     <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis-inverse">Cantidad de Reportes con más de 3 días</small>
@@ -39,7 +39,7 @@
         <div class="card mb-4 text-white bg-success">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Reportes Resueltos</div>
-                <div>500</div>
+                <div>{{$cantReportesResueltos}}</div>
                 <div class="progress progress-white progress-thin my-2">
                     <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis-inverse">Cantidad de Reportes Resueltos</small>
@@ -53,7 +53,7 @@
         <div class="card mb-4 alertas">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Clientes</div>
-                <div>10</div>
+                <div>{{$cantidadClientes}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis">Cantidad de Clientes</small>
@@ -63,7 +63,7 @@
         <div class="card mb-4 alertas">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Establecimientos</div>
-                <div>30</div>
+                <div>{{$cantidadEstablecimientos}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis">Cantidad de Establecimientos registrados</small>
@@ -73,7 +73,7 @@
         <div class="card mb-4 alertas">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Técnicos</div>
-                <div>7</div>
+                <div>{{$cantidadTecnicos}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis">Cantidad de Técnicos registrados</small>
@@ -83,7 +83,7 @@
         <div class="card mb-4 alertas">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Usuarios</div>
-                <div>7</div>
+                <div>{{$cantidadUsuarios}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis">Cantidad de Usuarios registrados</small>
@@ -130,7 +130,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Establecimientos en Linea</div>
-                <div>10</div>
+                <div>{{$cantEstablecimientosEnLinea}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis">Cantidad de Establecimientos en linea</small>
@@ -142,7 +142,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Establecimientos desconectados</div>
-                <div>20</div>
+                <div>{{$cantEstablecimientosDesconectados}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-info" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis">Cantidad de Establecimientos desconectados</small>
@@ -154,7 +154,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <div class="fs-4 fw-semibold">Establecimientos sin comunicación</div>
-                <div>25</div>
+                <div>{{$cantEstablecimientosSinCom}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis">Cantidad de Establecimientos sin comunicación</small>

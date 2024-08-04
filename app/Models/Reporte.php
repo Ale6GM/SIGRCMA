@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 
 class Reporte extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
+    protected $dates = ['fecha_inicio', 'fecha_cierre'];
 
     // relacion de uno muchos inversa con el modelo Reestado
 
@@ -45,4 +48,12 @@ class Reporte extends Model
     public function trabajos() {
         return $this->morphMany(Trabajo::class, 'trabajable');
     }
+
+    public function scopeAbiertosMasDeTresDias(Builder $query) {
+        $fechaLimite = Carbon::now()->subDays(3);
+
+        return $query->where('fecha_inicio', '<' , $fechaLimite);
+    }
+
+
 }
