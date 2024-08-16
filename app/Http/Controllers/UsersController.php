@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -40,16 +41,19 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function store(User $user, StoreUserRequest $request) 
+    public function store(StoreUserRequest $request) 
     {
-        //For demo purposes only. When creating user or inviting a user
-        // you should create a generated random password and email it to the user
-        $user->create(array_merge($request->validated(), [
-            'password' => 'test' 
-        ]));
+        //return $request->all();
+        User::create([
+            'name' => $request->first_name.' '.$request->last_name, 
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
 
         return redirect()->route('users.index')
-            ->withSuccess(__('User created successfully.'));
+            ->withSuccess(__('Usuario Creado Correctamente'));
     }
 
     /**
@@ -97,7 +101,7 @@ class UsersController extends Controller
         $user->syncRoles($request->get('role'));
 
         return redirect()->route('users.index')
-            ->withSuccess(__('User updated successfully.'));
+            ->withSuccess(__('Usuario Actualizado Correctamente.'));
     }
 
     /**
@@ -112,6 +116,6 @@ class UsersController extends Controller
         $user->delete();
 
         return redirect()->route('users.index')
-            ->withSuccess(__('User deleted successfully.'));
+            ->withSuccess(__('Usuario Eliminado Correctamente'));
     }
 }

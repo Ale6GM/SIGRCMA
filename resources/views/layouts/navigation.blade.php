@@ -44,6 +44,14 @@
         </a>
     </li>
     
+    <li class="nav-item">
+        <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.estadisticas.index') }}">
+            <svg class="nav-icon">
+                <use xlink:href="{{ asset('icons/coreui.svg#cil-bookmark') }}"></use>
+            </svg>
+            {{ __('Estadisticas') }}
+        </a>
+    </li>
 
     
 

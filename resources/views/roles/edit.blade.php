@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('title')
-Edit Role
+Editar Rol
 @endsection
 
 @section('content')
 <div class="bg-light rounded">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Update role</h5>
+            <h5 class="card-title">Actualizar Rol</h5>
             <div class="container mt-4">
 
                 <form method="POST" action="{{ route('roles.update', $role->id) }}">
@@ -20,13 +20,13 @@ Edit Role
                             required>
                     </div>
 
-                    <label for="permissions" class="form-label">Assign Permissions</label>
+                    <label for="permissions" class="form-label">Asignar Permisos</label>
 
                     <table class="table table-striped">
                         <thead>
                             <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
-                            <th scope="col" width="20%">Name</th>
-                            <th scope="col" width="1%">Guard</th>
+                            <th scope="col" width="20%">Nombre</th>
+                            <th scope="col" width="1%">Guarda</th>
                         </thead>
 
                         @foreach($permissions as $permission)
@@ -43,8 +43,8 @@ Edit Role
                         @endforeach
                     </table>
 
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <a href="{{ route('roles.index') }}" class="btn btn-default">Atras</a>
                 </form>
             </div>
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EstablecimientoController;
+use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\TecnicoController;
 use App\Http\Controllers\TrabajoController;
@@ -45,6 +46,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('tecnicos', TecnicoController::class)->names('admin.tecnicos');
         Route::resource('reportes', ReporteController::class)->names('admin.reportes');
         Route::resource('trabajos', TrabajoController::class)->names('admin.trabajos');
+        Route::resource('estadisticas', EstadisticaController::class)->names('admin.estadisticas');
         /**
          * 
          * Role Routes

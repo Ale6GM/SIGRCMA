@@ -1,57 +1,85 @@
 @extends('layouts.app')
 
 @section('title')
-Create User
+Crear Usuario
 @endsection
 
 @section('content')
     <div class="bg-light p-4 rounded">
-        <h1>Add new user</h1>
+        <h1>Añadir nuevo Usuario</h1>
         <div class="lead">
-            Add new user and assign role.
+            Agregue un nuevo usuario y asigne un Rol.
         </div>
 
         <div class="container mt-4">
-            <form method="POST" action="">
+            <form action="{{ route('users.store') }}" method="POST">
                 @csrf
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input value="{{ old('name') }}" 
-                        type="text" 
-                        class="form-control" 
-                        name="name" 
-                        placeholder="Name" required>
 
-                    @if ($errors->has('name'))
-                        <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input value="{{ old('email') }}"
-                        type="email" 
-                        class="form-control" 
-                        name="email" 
-                        placeholder="Email address" required>
-                    @if ($errors->has('email'))
-                        <span class="text-danger text-left">{{ $errors->first('email') }}</span>
-                    @endif
-                </div>
-                <div class="mb-3">
-                    <label for="username" class="form-label">Username</label>
-                    <input value="{{ old('username') }}"
-                        type="text" 
-                        class="form-control" 
-                        name="username" 
-                        placeholder="Username" required>
-                    @if ($errors->has('username'))
-                        <span class="text-danger text-left">{{ $errors->first('username') }}</span>
-                    @endif
+                <div class="input-group mb-3"><span class="input-group-text">
+                <svg class="icon">
+                  <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
+                </svg></span>
+                    <input class="form-control" type="text" name="first_name" placeholder="{{ __('Nombre') }}" required
+                           autocomplete="first_name" autofocus>
+                    @error('first_name')
+                    <span class="invalid-feedback">
+                        {{ $message }}
+                    </span>
+                    @enderror
                 </div>
 
-                <button type="submit" class="btn btn-primary">Save user</button>
-                <a href="{{ route('users.index') }}" class="btn btn-default">Back</a>
+                <div class="input-group mb-3"><span class="input-group-text">
+                <svg class="icon">
+                  <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
+                </svg></span>
+                    <input class="form-control" type="text" name="last_name" placeholder="{{ __('Apellidos') }}" required
+                           autocomplete="last_name" autofocus>
+                    @error('last_name')
+                    <span class="invalid-feedback">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="input-group mb-3"><span class="input-group-text">
+                <svg class="icon">
+                  <use xlink:href="{{ asset('icons/coreui.svg#cil-envelope-open') }}"></use>
+                </svg></span>
+                    <input class="form-control" type="text" name="email" placeholder="{{ __('Correo') }}" required
+                           autocomplete="email">
+                    @error('email')
+                    <span class="invalid-feedback">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="input-group mb-3"><span class="input-group-text">
+                <svg class="icon">
+                  <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
+                </svg></span>
+                    <input class="form-control @error('password') is-invalid @enderror" type="password"
+                           name="password" placeholder="{{ __('Password') }}" required autocomplete="new-password">
+                    @error('password')
+                    <span class="invalid-feedback">
+                        {{ $message }}
+                    </span>
+                    @enderror
+                </div>
+
+                <div class="input-group mb-4"><span class="input-group-text">
+                <svg class="icon">
+                  <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
+                </svg></span>
+                    <input class="form-control @error('password_confirmation') is-invalid @enderror" type="password"
+                           name="password_confirmation" placeholder="{{ __('Confirma Password') }}" required
+                           autocomplete="new-password">
+                </div>
+
+                <button class="btn btn-block btn-success" type="submit">{{ __('Registrar') }}</button>
+                <a href="{{route('users.index')}}" class="btn btn-secondary">Atras</a>
             </form>
+            
         </div>
 
     </div>

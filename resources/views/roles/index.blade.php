@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Role list
+Lista de Roles
 @endsection
 
 @section('content')
@@ -9,22 +9,22 @@ Role list
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Roles</h5>
-            <h6 class="card-subtitle mb-2 text-muted"> Manage your roles here.</h6>
+            <h6 class="card-subtitle mb-2 text-muted"> Administre sus Roles Aqui...</h6>
 
             <div class="mt-2">
                 @include('layouts.includes.messages')
             </div>
 
             <div class="mb-2 text-end">
-                <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right">Add role</a>
+                <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right">Añadir Rol</a>
             </div>
 
             <table class="table table-striped">
                 <tr>
                     <th width="1%">No</th>
-                    <th>Name</th>
-                    <th>Permissions</th>
-                    <th width="3%" colspan="3">Action</th>
+                    <th>Nombre</th>
+                    <th>Permisos</th>
+                    <th width="3%" colspan="3">Acciones</th>
                 </tr>
                 @foreach ($roles as $key => $role)
                 <tr>
@@ -36,16 +36,17 @@ Role list
                         @endforeach
                     </td>
                     <td>
-                        <a class="btn btn-info btn-sm" href="{{ route('roles.show', $role->id) }}">Show</a>
+                        <a class="btn btn-info btn-sm" href="{{ route('roles.show', $role->id) }}">Ver</a>
                     </td>
                     <td>
-                        <a class="btn btn-primary btn-sm" href="{{ route('roles.edit', $role->id) }}">Edit</a>
+                        <a class="btn btn-primary btn-sm" href="{{ route('roles.edit', $role->id) }}">Editar</a>
                     </td>
                     <td>
-                        {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy',
-                        $role->id],'style'=>'display:inline']) !!}
-                        {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                        {!! Form::close() !!}
+                        <form action="{{route('roles.destroy', $role->id)}}" method="post" onsubmit="confirmarEliminacion(event)">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
+                        </form>
                     </td>
                 </tr>
                 @endforeach
@@ -59,4 +60,29 @@ Role list
         </div>
     </div>
 </div>
+@endsection
+
+@section('script')
+    {{-- Seccion para la ejecucion de codigo javascript en esta pagina --}}
+<script>
+    window.confirmarEliminacion = (event) => {
+        event.preventDefault();
+
+            Swal.fire({
+            title: '¿Estás seguro?',
+            text: "La eliminacion es permanente!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar!',
+            cancelButtonText: 'Cancelar!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si el usuario confirma, envía el formulario
+                event.target.submit();
+            }
+        });
+}
+</script>
 @endsection

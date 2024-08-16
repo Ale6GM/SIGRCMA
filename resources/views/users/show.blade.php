@@ -1,29 +1,29 @@
 @extends('layouts.app')
 
 @section('title')
-Show User
+Detalles Usuario
 @endsection
 
 @section('content')
 <div class="bg-light rounded">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Show user</h5>
+            <h5 class="card-title">Detalles Usuario</h5>
 
             <div class="container mt-4">
                 <div>
-                    Name: {{ $user->name }}
+                    Nombre: {{ $user->name }}
                 </div>
                 <div>
-                    Email: {{ $user->email }}
+                    Correo: {{ $user->email }}
                 </div>
                 <div>
-                    Username: {{ $user->username }}
+                    Nombre de Usuario: {{ $user->username }}
                 </div>
 
                 <div class="mt-4">
-                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Edit</a>
-                    <a href="{{ route('users.index') }}" class="btn btn-default">Back</a>
+                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">Editar</a>
+                    <a href="{{ route('users.index') }}" class="btn btn-default">Atras</a>
                 </div>
             </div>
 
