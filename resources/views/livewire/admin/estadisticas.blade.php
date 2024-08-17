@@ -62,7 +62,7 @@
       </div>
    </div>
 
-   <div class="card">
+   <div class="card mb-4">
       <div class="card-header text-bg-dark">
          <h5>Reportes por Año</h5>
       </div>
@@ -71,6 +71,7 @@
             <div class="col-5">
                <label for="">Año</label>
                <select wire:model="yearSelected" name="" id="" class="form-control">
+                  <option value="">Seleccione un Año</option>
                   @foreach ($years as $year)
                       <option value="{{$year}}">{{$year}}</option>
                   @endforeach
@@ -81,40 +82,290 @@
             </div>
          </div>
          <div class="row">
-            @if ($reportes->isEmpty())
-                <p>nada</p>
-            @else
-                <div class="table-responsive">
-                  <table class="table table-striped">
-                     <thead>
-                        <tr>
-                           <th>No. Rep</th>
-                           <th>Fecha Inicio</th>
-                           <th>Fecha Cierre</th>
-                           <th>Estado Reporte</th>
-                           <th>Cliente</th>
-                           <th>Local</th>
-                           <th>Estado Local</th>
-                           <th>Tecnico</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        @foreach ($reportes as $reporte)
-                            <tr>
-                              <td>{{$reporte->id}}</td>
-                              <td>{{$reporte->fecha_inicio}}</td>
-                              <td>{{$reporte->fecha_cierre}}</td>
-                              <td>{{$reporte->repestado->descripcion}}</td>
-                              <td>{{$reporte->cliente->nombre}}</td>
-                              <td>{{$reporte->establecimiento->descripcion}}</td>
-                              <td>{{$reporte->establecimiento->estado->descripcion}}</td>
-                              <td>{{$reporte->tecnico->nombre}} {{$reporte->tecnico->primer_apellido}} {{$reporte->tecnico->segundo_apellido}}</td>
-                            </tr>
-                        @endforeach
-                     </tbody>
-                  </table>
+                @if ($reportes)
+                    <div class="card-body">
+                     <div class="table-responsive">
+                        <table class="table table-striped">
+                           <thead>
+                              <tr>
+                                 <th>No. Rep</th>
+                                 <th>Fecha Inicio</th>
+                                 <th>Fecha Cierre</th>
+                                 <th>Estado Reporte</th>
+                                 <th>Cliente</th>
+                                 <th>Local</th>
+                                 <th>Estado Local</th>
+                                 <th>Tecnico</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              @foreach ($reportes as $reporte)
+                                  <tr>
+                                    <td>{{$reporte->id}}</td>
+                                    <td>{{$reporte->fecha_inicio}}</td>
+                                    <td>{{$reporte->fecha_cierre}}</td>
+                                    <td>{{$reporte->repestado->descripcion}}</td>
+                                    <td>{{$reporte->cliente->nombre}}</td>
+                                    <td>{{$reporte->establecimiento->descripcion}}</td>
+                                    <td>{{$reporte->establecimiento->estado->descripcion}}</td>
+                                    <td>{{$reporte->tecnico->nombre}} {{$reporte->tecnico->primer_apellido}} {{$reporte->tecnico->segundo_apellido}}</td>
+                                  </tr>
+                              @endforeach
+                           </tbody>
+                        </table>
+                      </div>
+                    </div>
+                @else
+                   
+                @endif
+            
+         </div>
+      </div>
+   </div>
+
+   <div class="card mb-4">
+      <div class="card-header text-bg-dark">
+         <h5>Reportes por Clientes</h5>
+      </div>
+      <div class="card-body">
+         <div class="row">
+            <div class="col-5">
+               <label for="">Cliente</label>
+               <select wire:model="selectedCliente" name="" id="" class="form-control">
+                  <option value="">Seleccione un Cliente</option>
+                  @foreach ($clientes as $cliente)
+                      <option value="{{$cliente->id}}">{{$cliente->nombre}}</option>
+                  @endforeach
+               </select>
+            </div>
+            <div class="col-4">
+               <button wire:click="buscarReportesPorCliente" class="btn btn-primary mt-4">Buscar</button>
+            </div>
+         </div>
+         <div class="row">
+            @if ($reports)
+                <div class="card-body">
+                  <div class="table-responsive">
+                     <table class="table table-striped">
+                        <thead>
+                           <tr>
+                              <th>No. Rep</th>
+                              <th>Fecha Inicio</th>
+                              <th>Fecha Cierre</th>
+                              <th>Estado Reporte</th>
+                              <th>Cliente</th>
+                              <th>Local</th>
+                              <th>Estado Local</th>
+                              <th>Tecnico</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           @foreach ($reports as $report)
+                               <tr>
+                                 <td>{{$report->id}}</td>
+                                 <td>{{$report->fecha_inicio}}</td>
+                                 <td>{{$report->fecha_cierre}}</td>
+                                 <td>{{$report->repestado->descripcion}}</td>
+                                 <td>{{$report->cliente->nombre}}</td>
+                                 <td>{{$report->establecimiento->descripcion}}</td>
+                                 <td>{{$report->establecimiento->estado->descripcion}}</td>
+                                 <td>{{$report->tecnico->nombre}} {{$report->tecnico->primer_apellido}} {{$report->tecnico->segundo_apellido}}</td>
+                               </tr>
+                           @endforeach
+                        </tbody>
+                     </table>
+                   </div>
                 </div>
+            @else
+                
             @endif
+         </div>
+      </div>
+   </div>
+
+   <div class="card mb-4">
+      <div class="card-header text-bg-dark">
+         <h5>Reportes por Estado</h5>
+      </div>
+      <div class="card-body">
+         <div class="row">
+            <div class="col-5">
+               <label for="">Estado del Reporte</label>
+               <select wire:model="selectedEstado" name="" id="" class="form-control">
+                  <option value="">Seleccione un Estado</option>
+                  @foreach ($estados as $estado)
+                      <option value="{{$estado->id}}">{{$estado->descripcion}}</option>
+                  @endforeach
+               </select>
+            </div>
+            <div class="col-4">
+               <button wire:click="buscarReportesPorEstado" class="btn btn-primary mt-4">Buscar</button>
+            </div>
+         </div>
+         <div class="row">
+            <div class="row">
+               @if ($ereportes)
+                   <div class="card-body">
+                     <div class="table-responsive">
+                        <table class="table table-striped">
+                           <thead>
+                              <tr>
+                                 <th>No. Rep</th>
+                                 <th>Fecha Inicio</th>
+                                 <th>Fecha Cierre</th>
+                                 <th>Estado Reporte</th>
+                                 <th>Cliente</th>
+                                 <th>Local</th>
+                                 <th>Estado Local</th>
+                                 <th>Tecnico</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              @foreach ($ereportes as $ereporte)
+                                  <tr>
+                                    <td>{{$ereporte->id}}</td>
+                                    <td>{{$ereporte->fecha_inicio}}</td>
+                                    <td>{{$ereporte->fecha_cierre}}</td>
+                                    <td>{{$ereporte->repestado->descripcion}}</td>
+                                    <td>{{$ereporte->cliente->nombre}}</td>
+                                    <td>{{$ereporte->establecimiento->descripcion}}</td>
+                                    <td>{{$ereporte->establecimiento->estado->descripcion}}</td>
+                                    <td>{{$ereporte->tecnico->nombre}} {{$ereporte->tecnico->primer_apellido}} {{$ereporte->tecnico->segundo_apellido}}</td>
+                                  </tr>
+                              @endforeach
+                           </tbody>
+                        </table>
+                      </div>
+                   </div>
+               @else
+                   
+               @endif
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="card mb-4">
+      <div class="card-header text-bg-dark">
+         <h5>Reportes por Locales</h5>
+      </div>
+      <div class="card-body">
+         <div class="row">
+            <div class="col-5">
+               <label for="">Locales</label>
+               <select wire:model="selectedLocal" class="form-control">
+                  <option value="">Seleccione un Local</option>
+                  @foreach ($locales as $local)
+                      <option value="{{$local->id}}">{{$local->descripcion}}</option>
+                  @endforeach
+               </select>
+            </div>
+            <div class="col-4">
+               <button wire:click="buscarReportesPorLocal" class="btn btn-primary mt-4">Buscar</button>
+            </div>
+         </div>
+         <div class="row">
+            <div class="row">
+               @if ($rlocales)
+                   <div class="card-body">
+                     <div class="table-responsive">
+                        <table class="table table-striped">
+                           <thead>
+                              <tr>
+                                 <th>No. Rep</th>
+                                 <th>Fecha Inicio</th>
+                                 <th>Fecha Cierre</th>
+                                 <th>Estado Reporte</th>
+                                 <th>Cliente</th>
+                                 <th>Local</th>
+                                 <th>Estado Local</th>
+                                 <th>Tecnico</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              @foreach ($rlocales as $rlocal)
+                                  <tr>
+                                    <td>{{$rlocal->id}}</td>
+                                    <td>{{$rlocal->fecha_inicio}}</td>
+                                    <td>{{$rlocal->fecha_cierre}}</td>
+                                    <td>{{$rlocal->repestado->descripcion}}</td>
+                                    <td>{{$rlocal->cliente->nombre}}</td>
+                                    <td>{{$rlocal->establecimiento->descripcion}}</td>
+                                    <td>{{$rlocal->establecimiento->estado->descripcion}}</td>
+                                    <td>{{$rlocal->tecnico->nombre}} {{$rlocal->tecnico->primer_apellido}} {{$rlocal->tecnico->segundo_apellido}}</td>
+                                  </tr>
+                              @endforeach
+                           </tbody>
+                        </table>
+                      </div>
+                   </div>
+               @else
+                   
+               @endif
+            </div>
+         </div>
+      </div>
+   </div>
+
+{{-- Reportes resueltos por tecnicos --}}
+   <div class="card mb-4">
+      <div class="card-header text-bg-dark">
+         <h5>Reportes por Técnicos</h5>
+      </div>
+      <div class="card-body">
+         <div class="row">
+            <div class="col-5">
+               <label for="">Técnicos</label>
+               <select wire:model="selectedTecnico" class="form-control">
+                  <option value="">Seleccione un Técnico</option>
+                  @foreach ($tecnicos as $tecnico)
+                      <option value="{{$tecnico->id}}">{{$tecnico->nombre}} {{$tecnico->primer_apellido}} {{$tecnico->segundo_apellido}}</option>
+                  @endforeach
+               </select>
+            </div>
+            <div class="col-4">
+               <button wire:click="buscarReportesPorTecnico" class="btn btn-primary mt-4">Buscar</button>
+            </div>
+         </div>
+         <div class="row">
+            <div class="row">
+               @if ($rtecnicos)
+                   <div class="card-body">
+                     <div class="table-responsive">
+                        <table class="table table-striped">
+                           <thead>
+                              <tr>
+                                 <th>No. Rep</th>
+                                 <th>Fecha Inicio</th>
+                                 <th>Fecha Cierre</th>
+                                 <th>Estado Reporte</th>
+                                 <th>Cliente</th>
+                                 <th>Local</th>
+                                 <th>Estado Local</th>
+                                 <th>Tecnico</th>
+                              </tr>
+                           </thead>
+                           <tbody>
+                              @foreach ($rtecnicos as $rtecnico)
+                                  <tr>
+                                    <td>{{$rtecnico->id}}</td>
+                                    <td>{{$rtecnico->fecha_inicio}}</td>
+                                    <td>{{$rtecnico->fecha_cierre}}</td>
+                                    <td>{{$rtecnico->repestado->descripcion}}</td>
+                                    <td>{{$rtecnico->cliente->nombre}}</td>
+                                    <td>{{$rtecnico->establecimiento->descripcion}}</td>
+                                    <td>{{$rtecnico->establecimiento->estado->descripcion}}</td>
+                                    <td>{{$rtecnico->tecnico->nombre}} {{$rtecnico->tecnico->primer_apellido}} {{$rtecnico->tecnico->segundo_apellido}}</td>
+                                  </tr>
+                              @endforeach
+                           </tbody>
+                        </table>
+                      </div>
+                   </div>
+               @else
+                   
+               @endif
+            </div>
          </div>
       </div>
    </div>

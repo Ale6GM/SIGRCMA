@@ -2,8 +2,12 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Cliente;
 use App\Models\Reporte;
+use App\Models\Tecnico;
 use Livewire\Component;
+use App\Models\Repestado;
+use App\Models\Establecimiento;
 
 class Estadisticas extends Component
 {
@@ -12,16 +16,30 @@ class Estadisticas extends Component
     public $fechaCierre;
     public $datos = [];
 
-
+    //Variables para la busqueda de reportes por Año
     public $yearSelected;
-    public $reportes;
+    public $reportes = [];
 
 
+    // Variables para la busqueda de los reportes por cliente
+    public $selectedCliente;
+    public $reports = [];
 
-    public function mount() {
-        $this->yearSelected = date('Y');
-        $this->buscarReportesPorAno();
-    }
+    // Variables para la busqueda de los reportes por Estado
+    public $selectedEstado;
+    public $ereportes = [];
+
+    //Variables para la busqueda de los reportes por Local
+
+    public $selectedLocal;
+    public $rlocales = [];
+
+    //Variables para la busqueda de los reportes por tecnico
+
+    public $selectedTecnico;
+    public $rtecnicos = [];
+
+    
 
     public function buscarPorFechas() {        
         $this->datos = Reporte::whereBetween('fecha_inicio', [$this->fechaInicio, $this->fechaCierre])->get();
@@ -31,15 +49,31 @@ class Estadisticas extends Component
         $this->reportes = Reporte::whereYear('fecha_inicio', $this->yearSelected)->get();
     }
 
-   
+   public function buscarReportesPorCliente() {
+        $this->reports = Reporte::where('clientes_id', $this->selectedCliente)->get();
+   }
+
+   public function buscarReportesPorEstado() {
+        $this->ereportes = Reporte::where('repestado_id', $this->selectedEstado)->get();
+   }
+
+   public function buscarReportesPorLocal() {
+        $this->rlocales = Reporte::where('establecimientos_id', $this->selectedLocal)->get();
+   }
+
+   public function buscarReportesPorTecnico() {
+        $this->rtecnicos = Reporte::where('tecnicos_id', $this->selectedTecnico)->where('repestado_id', 2)->get();
+   }
 
     public function render()
     {
-        $years = Reporte::selectRaw('YEAR(fecha_inicio) as year')
-                                ->distinct()
-                                ->orderBy('year', 'desc')
-                                ->pluck('year');
+        $years = Reporte::selectRaw('YEAR(fecha_inicio) as year')->distinct()->orderBy('year', 'desc')->pluck('year');
+        $clientes = Cliente::all();
+        $estados = Repestado::all();
+        $locales = Establecimiento::all();
+        $tecnicos = Tecnico::all();
 
-        return view('livewire.admin.estadisticas', ['years' => $years]);
+
+        return view('livewire.admin.estadisticas', ['years' => $years, 'clientes' => $clientes, 'estados' => $estados, 'locales' => $locales, 'tecnicos' => $tecnicos]);
     }
 }
