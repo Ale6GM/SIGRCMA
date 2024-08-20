@@ -369,4 +369,124 @@
          </div>
       </div>
    </div>
+
+   {{-- Reportes con mas de tres dias de abiertos --}}
+
+   <div class="card mb-4">
+      <div class="card-header text-bg-dark">
+         <h5>Reportes por Tiempo de Apertura</h5>
+      </div>
+
+      <div class="card-body">
+         <div class="row">
+            <div class="col-5">
+               <label for="">Rango de Dias de Apertura</label>
+               <select wire:model="selectedRango" class="form-control">
+                  <option value="">Seleccione un Rango</option>
+                  <option value="3">Mas de 3 Días</option>
+                  <option value="10">Mas de 10 Días</option>
+                  <option value="15">Mas de 15 Días</option>
+               </select>
+            </div>
+            <div class="col-4">
+               <button wire:click="buscarReportesPorRango" class="btn btn-primary mt-4">Buscar</button>
+            </div>
+         </div>
+
+         <div class="row">
+            @if ($reRangos)
+                <div class="card-body">
+                  <div class="table-responsive">
+                     <table class="table table-striped">
+                        <thead>
+                           <tr>
+                              <th>No. Rep</th>
+                              <th>Fecha Inicio</th>
+                              <th>Fecha Cierre</th>
+                              <th>Estado Reporte</th>
+                              <th>Cliente</th>
+                              <th>Local</th>
+                              <th>Estado Local</th>
+                              <th>Tecnico</th>
+                           </tr>
+                        </thead>
+                        <tbody>
+                           @foreach ($reRangos as $reRango)
+                               <tr>
+                                 <td>{{$reRango->id}}</td>
+                                 <td>{{$reRango->fecha_inicio}}</td>
+                                 <td>{{$reRango->fecha_cierre}}</td>
+                                 <td>{{$reRango->repestado->descripcion}}</td>
+                                 <td>{{$reRango->cliente->nombre}}</td>
+                                 <td>{{$reRango->establecimiento->descripcion}}</td>
+                                 <td>{{$reRango->establecimiento->estado->descripcion}}</td>
+                                 <td>{{$reRango->tecnico->nombre}} {{$reRango->tecnico->primer_apellido}} {{$reRango->tecnico->segundo_apellido}}</td>
+                               </tr>
+                           @endforeach
+                        </tbody>
+                     </table>
+                   </div>
+                </div>
+            @else
+                
+            @endif
+         </div>
+      </div>
+   </div>
+
+   {{-- Listado de los establecimientos por los tres tipos de estado --}}
+
+   <div class="card">
+      <div class="card-header text-bg-dark">
+         <h5>Listado de los Locales por Estados</h5>
+      </div>
+      <div class="card-body">
+         <div class="row">
+            <div class="col-5">
+               <label for="">Estados de los Locales</label>
+               <select wire:model="selectedEstadoLocal" class="form-control">
+                  <option value="">Seleccione un Estado</option>
+                  <option value="3">En Linea</option>
+                  <option value="2">Desconectado</option>
+                  <option value="1">Sin Comunicación</option>
+               </select>
+            </div>
+            <div class="col-4">
+               <button wire:click="buscarLocalPorEstado" class="btn btn-primary mt-4">Buscar</button>
+            </div>
+         </div>
+         <div class="row">
+            @if ($establecimientos)
+                <div class="card-body">
+                  <div class="table-responsive">
+                     <table class="table table-striped">
+                        <thead>
+                           <tr>
+                              <th>ID</th>
+                              <th>Nombre</th>
+                              <th>Cliente</th>
+                              <th>Estado del Local</th>
+                           </tr>
+                        </thead>
+
+                        <tbody>
+                           @foreach ($establecimientos as $establecimiento)
+                               <tr>
+                                 <td>{{$establecimiento->id}}</td>
+                                 <td>{{$establecimiento->descripcion}}</td>
+                                 <td>{{$establecimiento->cliente->nombre}}</td>
+                                 <td>{{$establecimiento->estado->descripcion}}</td>
+                               </tr>
+                           @endforeach
+                        </tbody>
+      
+                     </table>
+                  </div>
+                </div>
+            @endif
+         </div>
+      </div>
+      </div>
+   </div>
+
 </div>

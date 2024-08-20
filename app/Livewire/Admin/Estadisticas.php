@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Models\Local;
 use App\Models\Cliente;
 use App\Models\Reporte;
 use App\Models\Tecnico;
@@ -39,6 +40,13 @@ class Estadisticas extends Component
     public $selectedTecnico;
     public $rtecnicos = [];
 
+    //Variables para las busquedas por rango de apertura
+    public $selectedRango;
+    public $reRangos = [];
+
+    // Variables para la busqueda del local por estado
+    public $selectedEstadoLocal;
+    public $establecimientos = [];
     
 
     public function buscarPorFechas() {        
@@ -63,6 +71,22 @@ class Estadisticas extends Component
 
    public function buscarReportesPorTecnico() {
         $this->rtecnicos = Reporte::where('tecnicos_id', $this->selectedTecnico)->where('repestado_id', 2)->get();
+   }
+
+   public function buscarReportesPorRango() {
+        if($this->selectedRango === "3") {
+            $this->reRangos = Reporte::AbiertosMasDeTresDias()->get();
+        } elseif($this->selectedRango === "10") {
+            $this->reRangos = Reporte::AbiertosMasDeDiezDias()->get();
+        }elseif($this->selectedRango === "15") {
+            $this->reRangos = Reporte::AbiertosMasDeQuinceDias()->get();
+        } else {
+            $this->reRangos= collect();
+        }
+   }
+
+   public function buscarLocalPorEstado() {
+        $this->establecimientos = Establecimiento::where('esestado_id', $this->selectedEstadoLocal)->get();
    }
 
     public function render()

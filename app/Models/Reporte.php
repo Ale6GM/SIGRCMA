@@ -49,10 +49,28 @@ class Reporte extends Model
         return $this->morphMany(Trabajo::class, 'trabajable');
     }
 
-    public function scopeAbiertosMasDeTresDias(Builder $query) {
+    /* public function scopeAbiertosMasDeTresDias(Builder $query) {
         $fechaLimite = Carbon::now()->subDays(3);
 
-        return $query->where('fecha_inicio', '<' , $fechaLimite);
+        return $query->where('fecha_inicio', '<' , $fechaLimite)->where('repestado_id', 1);
+    } */
+
+    public function scopeAbiertosMasDeTresDias(Builder $query) {
+        return $query->where('repestado_id', 1)
+                     ->selectRaw('*, DATEDIFF(CURDATE(), fecha_inicio) as dias_abierto')
+                     ->having('dias_abierto', '>', 3);
+    }
+
+    public function scopeAbiertosMasDeDiezDias(Builder $query) {
+        return $query->where('repestado_id', 1)
+                     ->selectRaw('*, DATEDIFF(CURDATE(), fecha_inicio) as dias_abierto')
+                     ->having('dias_abierto', '>', 10);
+    }
+
+    public function scopeAbiertosMasDeQuinceDias(Builder $query) {
+        return $query->where('repestado_id', 1)
+                     ->selectRaw('*, DATEDIFF(CURDATE(), fecha_inicio) as dias_abierto')
+                     ->having('dias_abierto', '>', 15);
     }
 
 
