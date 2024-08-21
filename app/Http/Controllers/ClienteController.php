@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreClienteRequest;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\Admin\ReporteClientes;
+use App\Http\Requests\StoreClienteRequest;
 
 class ClienteController extends Controller
 {
@@ -73,5 +75,9 @@ class ClienteController extends Controller
 
     public function establecimientos(Cliente $cliente) {
         return response()->json($cliente->establecimientos);
+    }
+
+    public function exportarCliente() {
+        return Excel::download(new ReporteClientes, 'Clientes.xlsx');
     }
 }

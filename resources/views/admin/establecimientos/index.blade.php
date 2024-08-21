@@ -21,6 +21,10 @@
                 <div class="col-4">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoLocal">Nuevo Local</button>
                 </div>
+                <div class="col-7"></div>
+                <div class="col-1">
+                    <a href="{{route('exportar_locales')}}" class="btn btn-success">Exportar</a>
+                </div>
             </div>
 
             <div class="row">

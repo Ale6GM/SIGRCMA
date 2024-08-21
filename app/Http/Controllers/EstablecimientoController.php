@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Admin\ReporteLocales;
 use App\Http\Requests\StoreEstablecimientosRequest;
 use App\Models\Cliente;
 use App\Models\Esestado;
 use Illuminate\Http\Request;
 use App\Models\Establecimiento;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EstablecimientoController extends Controller
 {
@@ -73,5 +75,9 @@ class EstablecimientoController extends Controller
         $establecimiento->delete();
 
         return redirect()->route('admin.establecimientos.index')->with('info', 'El Local ha sido Eliminado con Exito');
+    }
+
+    public function exportarLocal() {
+        return Excel::download(new ReporteLocales, 'Locales.xlsx');
     }
 }

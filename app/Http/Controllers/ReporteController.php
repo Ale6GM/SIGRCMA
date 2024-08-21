@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Admin\ExportReportes;
 use App\Http\Requests\StoreReportesRequest;
 use App\Models\Cliente;
 use App\Models\Establecimiento;
@@ -10,6 +11,7 @@ use App\Models\Tecnico;
 use App\Models\Repestado;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReporteController extends Controller
 {
@@ -82,5 +84,9 @@ class ReporteController extends Controller
 
         return redirect()->route('admin.reportes.index')->with('info', 'El reporte ha sido eliminado correctamente');
 
+    }
+
+    public function exportarReportes() {
+        return Excel::download(new ExportReportes, 'Reportes.xlsx');
     }
 }

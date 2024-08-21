@@ -47,6 +47,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('reportes', ReporteController::class)->names('admin.reportes');
         Route::resource('trabajos', TrabajoController::class)->names('admin.trabajos');
         Route::resource('estadisticas', EstadisticaController::class)->names('admin.estadisticas');
+
+        /* Rutas de Exportacion Globales */
+
+        Route::get('exportar_clientes', [ClienteController::class, 'exportarCliente'])->name('exportar_clientes');
+        Route::get('exportar_locales', [EstablecimientoController::class, 'exportarLocal'])->name('exportar_locales');
+        Route::get('exportar_reportes', [ReporteController::class, 'exportarReportes'])->name('exportar_reportes');
         /**
          * 
          * Role Routes
