@@ -20,6 +20,9 @@
          </div>
          <div class="row">
             @if ($datos)
+               <div class="col-1 mt-2">
+                  <button wire:click="exportarBusquedasPorFechas" class="btn btn-success mt-2">Exportar</button>
+               </div>
                <div class="card-body">
                   <div class="table-responsive">
                      <table class="table table-striped">
@@ -83,6 +86,9 @@
          </div>
          <div class="row">
                 @if ($reportes)
+                  <div class="col-1 mt-2">
+                  <button wire:click="exportarBusquedasByYear" class="btn btn-success mt-2">Exportar</button>
+                  </div>
                     <div class="card-body">
                      <div class="table-responsive">
                         <table class="table table-striped">
@@ -144,6 +150,9 @@
          </div>
          <div class="row">
             @if ($reports)
+               <div class="col-1 mt-2">
+               <button wire:click="exportarBusquedasPorClientes" class="btn btn-success mt-2">Exportar</button>
+               </div>
                 <div class="card-body">
                   <div class="table-responsive">
                      <table class="table table-striped">
@@ -205,6 +214,9 @@
          <div class="row">
             <div class="row">
                @if ($ereportes)
+               <div class="col-1 mt-2">
+                  <button wire:click="exportarBusquedasPorEstado" class="btn btn-success mt-2">Exportar</button>
+                  </div>
                    <div class="card-body">
                      <div class="table-responsive">
                         <table class="table table-striped">
@@ -267,6 +279,9 @@
          <div class="row">
             <div class="row">
                @if ($rlocales)
+                  <div class="col-1 mt-2">
+                  <button wire:click="exportarBusquedasPorLocal" class="btn btn-success mt-2">Exportar</button>
+                  </div>
                    <div class="card-body">
                      <div class="table-responsive">
                         <table class="table table-striped">
@@ -330,6 +345,9 @@
          <div class="row">
             <div class="row">
                @if ($rtecnicos)
+               <div class="col-1 mt-2">
+                  <button wire:click="exportarBusquedasPorTecnico" class="btn btn-success mt-2">Exportar</button>
+                  </div>
                    <div class="card-body">
                      <div class="table-responsive">
                         <table class="table table-striped">
@@ -395,6 +413,9 @@
 
          <div class="row">
             @if ($reRangos)
+               <div class="col-1 mt-2">
+               <button wire:click="exportarBusquedasPorRango" class="btn btn-success mt-2">Exportar</button>
+               </div>
                 <div class="card-body">
                   <div class="table-responsive">
                      <table class="table table-striped">
@@ -457,6 +478,9 @@
          </div>
          <div class="row">
             @if ($establecimientos)
+            <div class="col-1 mt-2">
+               <button wire:click="exportarBusquedasPorEstadoLocal" class="btn btn-success mt-2">Exportar</button>
+               </div>
                 <div class="card-body">
                   <div class="table-responsive">
                      <table class="table table-striped">

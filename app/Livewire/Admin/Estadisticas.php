@@ -2,13 +2,21 @@
 
 namespace App\Livewire\Admin;
 
-use App\Models\Local;
+use App\Exports\Admin\Estadisticas\ExportReportesByYear;
+use App\Exports\Admin\Estadisticas\ExportReportesPorCliente;
+use App\Exports\Admin\Estadisticas\ExportReportesPorEstado;
+use App\Exports\Admin\Estadisticas\ExportReportesPorEstadoLocal;
+use App\Exports\Admin\Estadisticas\ExportReportesPorFecha;
+use App\Exports\Admin\Estadisticas\ExportReportesPorLocal;
+use App\Exports\Admin\Estadisticas\ExportReportesPorTecnico;
+use App\Exports\Admin\Estadisticas\ExportReportesPorRango;
 use App\Models\Cliente;
 use App\Models\Reporte;
 use App\Models\Tecnico;
 use Livewire\Component;
 use App\Models\Repestado;
 use App\Models\Establecimiento;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Estadisticas extends Component
 {
@@ -87,6 +95,82 @@ class Estadisticas extends Component
 
    public function buscarLocalPorEstado() {
         $this->establecimientos = Establecimiento::where('esestado_id', $this->selectedEstadoLocal)->get();
+   }
+
+   /* Metodos para las exportaciones de los resultados de los filtros */
+
+   public function exportarBusquedasPorFechas() {
+        try {
+          return Excel::download(new ExportReportesPorFecha($this->fechaInicio, $this->fechaCierre), 'Reportes-por-Fechas.xlsx');
+        } catch (\Exception $e) {
+          // Manejar la excepción y mostrar un mensaje al usuario si es necesario
+          session()->flash('error', 'Hubo un problema al generar el reporte: ' . $e->getMessage());
+          return back();
+        }
+   }
+
+   public function exportarBusquedasByYear() {
+        try {
+          return Excel::download(new ExportReportesByYear($this->yearSelected), 'Reportes-Por-Ano.xlsx');
+        } catch (\Exception $e) {
+          // Manejar la excepción y mostrar un mensaje al usuario si es necesario
+          session()->flash('error', 'Hubo un problema al generar el reporte: ' . $e->getMessage());
+          return back();
+        }
+   }
+
+   public function exportarBusquedasPorClientes() {
+        try {
+          return Excel::download(new ExportReportesPorCliente($this->selectedCliente), 'Reportes-Por-Clientes.xlsx');
+        } catch (\Exception $e) {
+          // Manejar la excepción y mostrar un mensaje al usuario si es necesario
+          session()->flash('error', 'Hubo un problema al generar el reporte: ' . $e->getMessage());
+          return back();
+        }
+   }
+
+   public function exportarBusquedasPorEstado() {
+        try {
+          return Excel::download(new ExportReportesPorEstado($this->selectedEstado), 'Reportes-Por-Estado.xlsx');
+        } catch (\Exception $e) {
+          // Manejar la excepción y mostrar un mensaje al usuario si es necesario
+          session()->flash('error', 'Hubo un problema al generar el reporte: ' . $e->getMessage());
+          return back();
+        }
+   }
+
+   public function exportarBusquedasPorLocal() {
+        try {
+          return Excel::download(new ExportReportesPorLocal($this->selectedLocal), 'Reportes-Por-Local.xlsx');
+        } catch (\Exception $e) {
+          // Manejar la excepción y mostrar un mensaje al usuario si es necesario
+          session()->flash('error', 'Hubo un problema al generar el reporte: ' . $e->getMessage());
+          return back();
+        }
+   }
+
+   public function exportarBusquedasPorTecnico() {
+        try {
+          return Excel::download(new ExportReportesPorTecnico($this->selectedTecnico), 'Reportes-Por-Tecnicos.xlsx');
+        } catch (\Exception $e) {
+          // Manejar la excepción y mostrar un mensaje al usuario si es necesario
+          session()->flash('error', 'Hubo un problema al generar el reporte: ' . $e->getMessage());
+          return back();
+        }
+   }
+
+   public function exportarBusquedasPorRango() {
+     try {
+          return Excel::download(new ExportReportesPorRango($this->selectedRango), 'Reportes-Por-Rango.xlsx');
+      } catch (\Exception $e) {
+          // Manejar la excepción y mostrar un mensaje al usuario si es necesario
+          session()->flash('error', 'Hubo un problema al generar el reporte: ' . $e->getMessage());
+          return back();
+      }
+   }
+
+   public function exportarBusquedasPorEstadoLocal() {
+        return Excel::download(new ExportReportesPorEstadoLocal($this->selectedEstadoLocal), 'Reportes-Por-Estado-Local.xlsx');
    }
 
     public function render()
