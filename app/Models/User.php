@@ -2,54 +2,59 @@
 
 namespace App\Models;
 
-use App\Models\Presenters\UserPresenter;
-use App\Models\Traits\HasHashedMediaTrait;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Spatie\MediaLibrary\HasMedia;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable implements HasMedia, MustVerifyEmail
+class User extends Authenticatable
 {
+    use HasApiTokens;
     use HasFactory;
-    use HasRoles;
     use Notifiable;
-    use SoftDeletes;
-    use HasHashedMediaTrait;
-    use UserPresenter;
+    use HasRoles;
 
-    protected $guarded = [
-        'id',
-        'updated_at',
-        '_token',
-        '_method',
-        'password_confirmation',
-    ];
-
-    protected $dates = [
-        'deleted_at',
-        'date_of_birth',
-        'email_verified_at',
-    ];
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
-        'first_name',
-        'last_name',
         'name',
         'email',
         'password',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be hidden for serialization.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'profile_photo_url',
     ];
 
     // relacion de uno a muchos con el modelo reportes

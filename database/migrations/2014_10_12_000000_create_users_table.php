@@ -8,37 +8,26 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('username')->nullable();
             $table->string('email')->unique();
-            $table->string('mobile')->nullable();
-            $table->string('gender')->nullable();
-            $table->date('date_of_birth')->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();
-            $table->string('avatar')->nullable()->default('img/default-avatar.jpg');
-            $table->tinyInteger('status')->default(1)->unsigned();
+            $table->string('password');
             $table->rememberToken();
+            $table->foreignId('current_team_id')->nullable();
+            $table->string('profile_photo_path', 2048)->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('users');
     }

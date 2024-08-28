@@ -6,6 +6,7 @@ use App\Http\Controllers\EstadisticaController;
 use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\TecnicoController;
 use App\Http\Controllers\TrabajoController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,6 +48,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::resource('reportes', ReporteController::class)->names('admin.reportes');
         Route::resource('trabajos', TrabajoController::class)->names('admin.trabajos');
         Route::resource('estadisticas', EstadisticaController::class)->names('admin.estadisticas');
+        Route::resource('usuarios', UsuarioController::class)->names('admin.usuarios');
 
         /* Rutas de Exportacion Globales */
 

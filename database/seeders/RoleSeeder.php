@@ -23,12 +23,12 @@ class RoleSeeder extends Seeder
 
         // Permisos para los Usuarios
 
-        Permission::create(['name' => 'users.index', 'description' => 'Ver Lista de Usuarios'])->syncRoles([$role1]);
-        Permission::create(['name' => 'users.create', 'description' => 'Crear Usuarios'])->syncRoles([$role1]);
-        Permission::create(['name' => 'users.store', 'description' => 'Guardar Usuarios'])->syncRoles([$role1]);
-        Permission::create(['name' => 'users.edit', 'description' => 'Editar Usuarios'])->syncRoles([$role1]);
-        Permission::create(['name' => 'users.update', 'description' => 'Actualizar Usuarios'])->syncRoles([$role1]);
-        Permission::create(['name' => 'users.destroy', 'description' => 'Eliminar Usuarios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.usuarios.index', 'description' => 'Ver Lista de Usuarios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.usuarios.create', 'description' => 'Crear Usuarios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.usuarios.store', 'description' => 'Guardar Usuarios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.usuarios.edit', 'description' => 'Editar Usuarios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.usuarios.update', 'description' => 'Actualizar Usuarios'])->syncRoles([$role1]);
+        Permission::create(['name' => 'admin.usuarios.destroy', 'description' => 'Eliminar Usuarios'])->syncRoles([$role1]);
 
         // Permisos para el dashboard
 

@@ -97,9 +97,9 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user) 
+    public function update(Request $request, User $usuario) 
     {
-        $user->roles()->sync($request->roles);
+        $usuario->roles()->sync($request->roles);
 
         return redirect()->route('users.index')
             ->withSuccess(__('Usuario Actualizado Correctamente.'));

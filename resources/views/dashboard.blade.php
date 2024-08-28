@@ -163,3 +163,14 @@
     </div>
     
 </div>
+<div class="row">
+    <div class="card">
+        @can('dashboard')
+            <h1>Tienes el rol del tablero</h1>
+        @endcan
+
+        @can('admin.usuarios.create')
+            <h1>tienes el permiso de crear usuarios</h1>
+        @endcan
+    </div>
+</div>

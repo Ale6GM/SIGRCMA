@@ -1,13 +1,13 @@
 <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
     @can('dashboard')
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('dashboard') }}">
-                <svg class="nav-icon">
-                    <use xlink:href="{{ asset('icons/coreui.svg#cil-home') }}"></use>
-                </svg>
-                {{ __('Dashboard') }}
-            </a>
-        </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('dashboard') }}">
+            <svg class="nav-icon">
+                <use xlink:href="{{ asset('icons/coreui.svg#cil-home') }}"></use>
+            </svg>
+            {{ __('Dashboard') }}
+        </a>
+    </li>
     @endcan
 
     <li class="nav-item">
@@ -66,7 +66,7 @@
         </a>
         <ul class="nav-group-items" style="height: 0px;">
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('users*') ? 'active' : ''}}" href="{{ route('users.index') }}">
+                <a class="nav-link {{ request()->is('users*') ? 'active' : ''}}" href="{{ route('admin.usuarios.index') }}">
                     <svg class="nav-icon">
                         <use xlink:href="{{ asset('icons/coreui.svg#cil-user-plus') }}"></use>
                     </svg>
