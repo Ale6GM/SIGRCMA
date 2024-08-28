@@ -9,55 +9,21 @@ Editar Usuario
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">Editar Usuario</h5>
+            <h5>Nombre:</h5>
+                <p class="form-control">{{$user->name}}</p>
+                {!! Form::model($user, ['route'=>['users.update', $user], 'method' => 'put']) !!}
+                    <h5>Listado de Roles</h5>
+                        @foreach ($roles as $role)
+                            <div>
+                                <label>
+                                    {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
+                                    {{$role->name}}
+                                </label>
+                            </div>
+                        @endforeach
 
-            <div class="container mt-4">
-                <form method="post" action="{{ route('users.update', $user->id) }}">
-                    @method('patch')
-                    @csrf
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Nombre</label>
-                        <input value="{{ $user->name }}" type="text" class="form-control" name="name" placeholder="Name"
-                            required>
-
-                        @if ($errors->has('name'))
-                        <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input value="{{ $user->email }}" type="email" class="form-control" name="email"
-                            placeholder="Email address" required>
-                        @if ($errors->has('email'))
-                        <span class="text-danger text-left">{{ $errors->first('email') }}</span>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <label for="username" class="form-label">Nombre de Usuario</label>
-                        <input value="{{ $user->username }}" type="text" class="form-control" name="username"
-                            placeholder="Username" required>
-                        @if ($errors->has('username'))
-                        <span class="text-danger text-left">{{ $errors->first('username') }}</span>
-                        @endif
-                    </div>
-                    <div class="mb-3">
-                        <label for="role" class="form-label">Rol</label>
-                        <select class="form-control" name="role" required>
-                            <option value="">Select role</option>
-                            @foreach($roles as $role)
-                            <option value="{{ $role->id }}" {{ in_array($role->name, $userRole) 
-                                    ? 'selected'
-                                    : '' }}>{{ $role->name }}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('role'))
-                        <span class="text-danger text-left">{{ $errors->first('role') }}</span>
-                        @endif
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Actualizar Usuario</button>
-                    <a href="{{ route('users.index') }}" class="btn btn-default">Cancelar</button>
-                </form>
-            </div>
+                    {!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
+                {!! Form::close() !!}
         </div>
     </div>
 

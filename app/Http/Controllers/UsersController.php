@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Spatie\Permission\Models\Role;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -19,8 +19,10 @@ class UsersController extends Controller
     public function index() 
     {
         $users = User::latest()->paginate(10);
+        $roles = Role::all();
+        
 
-        return view('users.index', compact('users'));
+        return view('users.index', compact('users', 'roles'));
     }
 
     /**
@@ -79,11 +81,12 @@ class UsersController extends Controller
      */
     public function edit(User $user) 
     {
-        return view('users.edit', [
-            'user' => $user,
-            'userRole' => $user->roles->pluck('name')->toArray(),
-            'roles' => Role::latest()->get()
-        ]);
+        $user = $user;
+        $userRoles = $user->roles->pluck('name')->toArray();
+
+        $roles = Role::all();
+        
+        return view('users.edit', compact('user', 'userRoles', 'roles'));
     }
 
     /**
@@ -94,11 +97,9 @@ class UsersController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function update(User $user, UpdateUserRequest $request) 
+    public function update(Request $request, User $user) 
     {
-        $user->update($request->validated());
-
-        $user->syncRoles($request->get('role'));
+        $user->roles()->sync($request->roles);
 
         return redirect()->route('users.index')
             ->withSuccess(__('Usuario Actualizado Correctamente.'));

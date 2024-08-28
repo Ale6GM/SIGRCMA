@@ -1,12 +1,14 @@
 <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-home') }}"></use>
-            </svg>
-            {{ __('Dashboard') }}
-        </a>
-    </li>
+    @can('dashboard')
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('dashboard') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('icons/coreui.svg#cil-home') }}"></use>
+                </svg>
+                {{ __('Dashboard') }}
+            </a>
+        </li>
+    @endcan
 
     <li class="nav-item">
         <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.clientes.index') }}">

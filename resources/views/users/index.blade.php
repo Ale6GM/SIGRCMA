@@ -16,7 +16,7 @@ Listado de Usuarios
             </div>
 
             <div class="mb-2 text-end">
-                <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm float-right">Nuevo Usuario</a>
+                <button class="btn btn-primary btn-sm float-right" data-bs-toggle="modal" data-bs-target="#nuevoUsuario">Nuevo Usuario</button>
             </div>
 
             <table class="table table-striped">
@@ -25,8 +25,6 @@ Listado de Usuarios
                         <th scope="col" width="1%">ID</th>
                         <th scope="col" width="15%">Nombre</th>
                         <th scope="col">Correo</th>
-                        <th scope="col" width="20%">Nombre de Usuario</th>
-                        <th scope="col" width="10%">Rol</th>
                         <th scope="col" width="1%" colspan="3"></th>
                     </tr>
                 </thead>
@@ -36,14 +34,54 @@ Listado de Usuarios
                         <th scope="row">{{ $user->id }}</th>
                         <td>{{ $user->name }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->username }}</td>
-                        <td>
-                            @foreach($user->roles as $role)
-                            <span class="badge bg-primary">{{ $role->name }}</span>
-                            @endforeach
-                        </td>
                         <td><a href="{{ route('users.show', $user->id) }}" class="btn btn-warning btn-sm">Ver</a></td>
-                        <td><a href="{{ route('users.edit', $user->id) }}" class="btn btn-info btn-sm">Editar</a></td>
+                        <td>
+                            <a href="{{route('users.edit', $user)}}" class="btn btn-info btn-sm">Editar</a>
+                            {{-- <button class="btn btn-info btn-sm" data-bs-target="#editarUsuario{{$user->id}}" data-bs-toggle="modal">Editar</button>
+                            <div class="modal fade" id="editarUsuario{{$user->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalTitleId">
+                                                Asignar Rol
+                                            </h5>
+                                            <button
+                                                type="button"
+                                                class="btn-close"
+                                                data-bs-dismiss="modal"
+                                                aria-label="Close"
+                                            ></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h5>Nombre:</h5>
+                                            <p class="form-control">{{$user->name}}</p>
+                                        {!! Form::model($user, ['route'=>['users.update', $user], 'method' => 'put']) !!}
+                                            <h5>Listado de Roles</h5>
+                                            @foreach ($roles as $role)
+                                                <div>
+                                                    <label>
+                                                        {!! Form::checkbox('roles[]', $role->id, null, ['class'=>'mr-1']) !!}
+                                                        {{$role->name}}
+                                                    </label>
+                                                </div>
+                                            @endforeach
+                                            
+                                            </div>
+                                            <div class="modal-footer">
+                                            {!! Form::submit('Actualizar', ['class' => 'btn btn-success']) !!}
+                                        {!! Form::close() !!}
+                                            <button
+                                                type="button"
+                                                class="btn btn-secondary"
+                                                data-bs-dismiss="modal"
+                                            >
+                                                Cerrar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> --}}
+                        </td>
                         <td>
                             <form action="{{route('users.destroy', $user->id)}}" method="post" onsubmit="confirmarEliminacion(event)">
                                 @csrf
@@ -60,6 +98,91 @@ Listado de Usuarios
                 {!! $users->links() !!}
             </div>
 
+        </div>
+    </div>
+</div>
+
+{{-- Modal para la creacion de nuevos usuarios --}}
+<div class="modal fade" id="nuevoUsuario" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitleId">
+                    Nuevo Usuario
+                </h5>
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                ></button>
+            </div>
+            <div class="modal-body">
+                {!! Form::open(['route'=>'users.store']) !!}
+
+                <div class="input-group mb-3"><span class="input-group-text">
+                    <svg class="icon">
+                      <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
+                    </svg></span>
+                    {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el Nombre']) !!}
+
+                    @error('first_name')
+                        <strong class="text-danger">{{$message}}</strong>
+                    @enderror
+                </div>
+
+                <div class="input-group mb-3"><span class="input-group-text">
+                    <svg class="icon">
+                      <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
+                    </svg></span>
+                    {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Ingrese los Apellidos']) !!}
+
+                    @error('last_name')
+                        <strong class="text-danger">{{$message}}</strong>
+                    @enderror
+                </div>
+
+                <div class="input-group mb-3"><span class="input-group-text">
+                    <svg class="icon">
+                      <use xlink:href="{{ asset('icons/coreui.svg#cil-envelope-open') }}"></use>
+                    </svg></span>
+                    {!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el Email']) !!}
+                    @error('email')
+                        <strong class="text-danger">{{$message}}</strong>
+                    @enderror
+                </div>
+
+                <div class="input-group mb-3"><span class="input-group-text">
+                    <svg class="icon">
+                      <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
+                    </svg></span>
+                    {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Ingrese la contraseña']) !!}
+                    @error('password')
+                        <strong class="text-danger">{{$message}}</strong>
+                    @enderror
+                </div>
+
+                <div class="input-group mb-3"><span class="input-group-text">
+                    <svg class="icon">
+                      <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
+                    </svg></span>
+                    {!! Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Confirme la contraseña']) !!}
+                    @error('password')
+                        <strong class="text-danger">{{$message}}</strong>
+                    @enderror
+                </div>
+                </div>
+                <div class="modal-footer">
+                {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
+            {!! Form::close() !!}
+                <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                >
+                    Cerrar
+                </button>
+            </div>
         </div>
     </div>
 </div>
