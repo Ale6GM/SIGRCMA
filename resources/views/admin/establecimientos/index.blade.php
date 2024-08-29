@@ -19,11 +19,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoLocal">Nuevo Local</button>
+                    @can('admin.establecimientos.create')
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoLocal">Nuevo Local</button>
+                    @endcan
                 </div>
                 <div class="col-7"></div>
                 <div class="col-1">
-                    <a href="{{route('exportar_locales')}}" class="btn btn-success">Exportar</a>
+                    @can('exportar_locales')
+                        <a href="{{route('exportar_locales')}}" class="btn btn-success">Exportar</a>
+                    @endcan
                 </div>
             </div>
 
@@ -48,7 +52,9 @@
                                     <td>{{$establecimiento->cliente->nombre}}</td>
                                     <td>{{$establecimiento->estado->descripcion}}</td>
                                     <td width = "10px">
-                                        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarLocal{{$establecimiento->id}}">Editar</button>
+                                        @can('admin.establecimientos.edit')
+                                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editarLocal{{$establecimiento->id}}">Editar</button>
+                                        @endcan
                                         {{-- Modal para la edicion de los Establecimientos --}}
                                         <div class="modal fade" id="editarLocal{{$establecimiento->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
@@ -117,11 +123,13 @@
                                         </div>
                                     </td>
                                     <td width="10px">
-                                        <form id="formularioEliminacion" action="{{route('admin.establecimientos.destroy', $establecimiento)}}" method="post" onsubmit="confirmarEliminacion(event)">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="submit" class="btn btn-danger btn-sm" value="Elminar">
-                                        </form>
+                                        @can('admin.establecimientos.destroy')
+                                            <form id="formularioEliminacion" action="{{route('admin.establecimientos.destroy', $establecimiento)}}" method="post" onsubmit="confirmarEliminacion(event)">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="submit" class="btn btn-danger btn-sm" value="Elminar">
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

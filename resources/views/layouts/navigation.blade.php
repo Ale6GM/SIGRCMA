@@ -10,50 +10,60 @@
     </li>
     @endcan
 
-    <li class="nav-item">
-        <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.clientes.index') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-group') }}"></use>
-            </svg>
-            {{ __('Clientes') }}
-        </a>
-    </li>
+    @can('admin.clientes.index')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.clientes.index') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('icons/coreui.svg#cil-group') }}"></use>
+                </svg>
+                {{ __('Clientes') }}
+            </a>
+        </li>
+    @endcan
 
-    <li class="nav-item">
-        <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.establecimientos.index') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-building') }}"></use>
-            </svg>
-            {{ __('Establecimientos') }}
-        </a>
-    </li>
+    @can('admin.establecimientos.index')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.establecimientos.index') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('icons/coreui.svg#cil-building') }}"></use>
+                </svg>
+                {{ __('Establecimientos') }}
+            </a>
+        </li>
+    @endcan
 
-    <li class="nav-item">
-        <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.tecnicos.index') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
-            </svg>
-            {{ __('Técnicos') }}
-        </a>
-    </li>
+    @can('admin.tecnicos.index')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.tecnicos.index') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
+                </svg>
+                {{ __('Técnicos') }}
+            </a>
+        </li>
+    @endcan
 
-    <li class="nav-item">
-        <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.reportes.index') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-bookmark') }}"></use>
-            </svg>
-            {{ __('Reportes') }}
-        </a>
-    </li>
+    @can('admin.reportes.index')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.reportes.index') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('icons/coreui.svg#cil-bookmark') }}"></use>
+                </svg>
+                {{ __('Reportes') }}
+            </a>
+        </li>
+    @endcan
     
-    <li class="nav-item">
-        <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.estadisticas.index') }}">
-            <svg class="nav-icon">
-                <use xlink:href="{{ asset('icons/coreui.svg#cil-bar-chart') }}"></use>
-            </svg>
-            {{ __('Estadisticas') }}
-        </a>
-    </li>
+    @can('admin.estadisticas.index')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('admin.estadisticas.index') }}">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('icons/coreui.svg#cil-bar-chart') }}"></use>
+                </svg>
+                {{ __('Estadisticas') }}
+            </a>
+        </li>
+    @endcan
 
     
 
@@ -65,31 +75,37 @@
             Administración
         </a>
         <ul class="nav-group-items" style="height: 0px;">
-            <li class="nav-item">
-                <a class="nav-link {{ request()->is('users*') ? 'active' : ''}}" href="{{ route('admin.usuarios.index') }}">
-                    <svg class="nav-icon">
-                        <use xlink:href="{{ asset('icons/coreui.svg#cil-user-plus') }}"></use>
-                    </svg>
-                    {{ __('Usuarios') }}
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ request()->is('permissions*') ? 'active' : ''}}" href="{{ route('permissions.index') }}">
-                    <svg class="nav-icon">
-                        <use xlink:href="{{ asset('icons/coreui.svg#cil-list') }}"></use>
-                    </svg>
-                    {{ __('Permisos') }}
-                </a>
-            </li>
+            @can('admin.usuarios.index')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('users*') ? 'active' : ''}}" href="{{ route('admin.usuarios.index') }}">
+                        <svg class="nav-icon">
+                            <use xlink:href="{{ asset('icons/coreui.svg#cil-user-plus') }}"></use>
+                        </svg>
+                        {{ __('Usuarios') }}
+                    </a>
+                </li>
+            @endcan
+            @can('permissions.index')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('permissions*') ? 'active' : ''}}" href="{{ route('permissions.index') }}">
+                        <svg class="nav-icon">
+                            <use xlink:href="{{ asset('icons/coreui.svg#cil-list') }}"></use>
+                        </svg>
+                        {{ __('Permisos') }}
+                    </a>
+                </li>
+            @endcan
 
-            <li class="nav-item">
-                <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('roles.index') }}">
-                    <svg class="nav-icon">
-                        <use xlink:href="{{ asset('icons/coreui.svg#cil-check-circle') }}"></use>
-                    </svg>
-                    {{ __('Roles') }}
-                </a>
-            </li>
+            @can('roles.index')
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('roles*') ? 'active' : ''}}" href="{{ route('roles.index') }}">
+                        <svg class="nav-icon">
+                            <use xlink:href="{{ asset('icons/coreui.svg#cil-check-circle') }}"></use>
+                        </svg>
+                        {{ __('Roles') }}
+                    </a>
+                </li>
+            @endcan
         </ul>
     </li>
 </ul>

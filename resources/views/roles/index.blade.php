@@ -32,7 +32,7 @@ Lista de Roles
                     <td>{{ $role->name }}</td>
                     <td>
                         @foreach ($role->permissions as $perm)
-                        <span class="badge text-bg-info">{{ $perm->name }}</span>
+                        <span class="badge text-bg-info">{{ $perm->description }}</span>
                         @endforeach
                     </td>
                     <td>

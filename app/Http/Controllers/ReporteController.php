@@ -23,7 +23,7 @@ class ReporteController extends Controller
         $repestados = Repestado::pluck('descripcion', 'id');
         $clientes = Cliente::all();
         $tecnicos = Tecnico::all();
-        $reportes = Reporte::with(['cliente', 'establecimiento', 'tecnico', 'user', 'repestado'])->where('repestado_id', 1)->get();
+        $reportes = Reporte::with(['cliente', 'establecimiento', 'tecnico', 'user', 'repestado'])->where('repestado_id', 1)->paginate(10);
         $clientesEdit = Cliente::pluck('nombre', 'id');
         $establecimientos = Establecimiento::pluck('descripcion', 'id');
                 

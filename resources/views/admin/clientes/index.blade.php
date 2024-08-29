@@ -17,14 +17,18 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoCliente">Nuevo Cliente</button>
+                    @can('admin.clientes.create')
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoCliente">Nuevo Cliente</button>
+                    @endcan
                 </div>
                 <div class="col-7">
                     
                 </div>
 
                 <div class="col-1">
-                    <a href="{{route('exportar_clientes')}}" class="btn btn-success float-right">Exportar</a>
+                    @can('exportar_clientes')
+                        <a href="{{route('exportar_clientes')}}" class="btn btn-success float-right">Exportar</a>
+                    @endcan
                 </div>
             </div>
 
@@ -44,7 +48,9 @@
                                     <td>{{$cliente->id}}</td>
                                     <td>{{$cliente->nombre}}</td>
                                     <td width="10px">
-                                        <button class="btn btn-primary btn-sm" data-bs-target="#editarCliente{{$cliente->id}}" data-bs-toggle="modal">Editar</button>
+                                        @can('admin.clientes.edit')
+                                            <button class="btn btn-primary btn-sm" data-bs-target="#editarCliente{{$cliente->id}}" data-bs-toggle="modal">Editar</button>
+                                        @endcan
                                         {{-- Modal para la Ediacion del Cliente --}}
                                         <div class="modal fade" id="editarCliente{{$cliente->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
@@ -86,11 +92,13 @@
                                         </div>
                                     </td>
                                     <td width="10px">
-                                        <form id="formularioEliminacion" action="{{route('admin.clientes.destroy', $cliente)}}" method="post" onsubmit="confirmarEliminacion(event)">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
-                                        </form>
+                                        @can('admin.clientes.destroy')
+                                            <form id="formularioEliminacion" action="{{route('admin.clientes.destroy', $cliente)}}" method="post" onsubmit="confirmarEliminacion(event)">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

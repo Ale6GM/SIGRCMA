@@ -19,11 +19,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-4">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoReporte">Nuevo Reporte</button>
+                    @can('admin.reportes.create')
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoReporte">Nuevo Reporte</button>
+                    @endcan
                 </div>
                 <div class="col-7"></div>
                 <div class="col-1">
-                    <a href="{{route('exportar_reportes')}}" class="btn btn-success">Exportar</a>
+                    @can('exportar_reportes')
+                        <a href="{{route('exportar_reportes')}}" class="btn btn-success">Exportar</a>
+                    @endcan
                 </div>
             </div>
 
@@ -55,7 +59,9 @@
                                     <td>{{$reporte->establecimiento->estado->descripcion}}</td>
                                     <td>{{$reporte->tecnico->nombre}} {{$reporte->tecnico->primer_apellido}} {{$reporte->tecnico->segundo_apellido}}</td>
                                     <td width="10px">
-                                        <button class="btn btn-success btn-sm" data-bs-target="#verReporte{{$reporte->id}}" data-bs-toggle="modal">Ver</button>
+                                        @can('admin.reportes.show')
+                                            <button class="btn btn-success btn-sm" data-bs-target="#verReporte{{$reporte->id}}" data-bs-toggle="modal">Ver</button>
+                                        @endcan
 
                                         {{-- Modal para ver los detalles del reporte --}}
                                         <div class="modal fade" id="verReporte{{$reporte->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -174,7 +180,9 @@
                                         </div>
                                     </td>
                                     <td width="10px">
-                                        <button class="btn btn-primary btn-sm" data-bs-target="#editarReporte{{$reporte->id}}" data-bs-toggle="modal">Editar</button>
+                                        @can('admin.reportes.edit')
+                                            <button class="btn btn-primary btn-sm" data-bs-target="#editarReporte{{$reporte->id}}" data-bs-toggle="modal">Editar</button>
+                                        @endcan
                                         <!-- Modal Body -->
                                         <!-- Modal para introducir nuevo reporte -->
                                         <div class="modal fade" id="editarReporte{{$reporte->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -197,7 +205,7 @@
                                                                 <div class="col-4">
                                                                     <div class="form-group">
                                                                         {!! Form::label('fecha_inicio', 'Fecha de Inicio') !!}
-                                                                        {!! Form::date('fecha_inicio', null, ['class' => 'form-control']) !!}
+                                                                        {!! Form::date('fecha_inicio', null, ['class' => 'form-control', 'readonly']) !!}
 
                                                                         @error('fecha_inicio')
                                                                         <strong class="text-danger">{{$message}}</strong>
@@ -230,7 +238,7 @@
                                                                 <div class="col-4">
                                                                     <div class="form-group">
                                                                         {!! Form::label('clientes_id', 'Cliente') !!}
-                                                                        {!! Form::select('clientes_id', $clientesEdit, null, ['class'=> 'form-control']) !!}
+                                                                        {!! Form::select('clientes_id', $clientesEdit, null, ['class'=> 'form-control', 'readonly']) !!}
                                                                     </div>
                                                                     @error('clientes_id')
                                                                         <strong class="text-danger">{{$message}}</strong>
@@ -240,7 +248,7 @@
                                                                 <div class="col-4">
                                                                     <div class="form-group">
                                                                         {!! Form::label('establecimientos_id', 'Local') !!}
-                                                                        {!! Form::select('establecimientos_id', $establecimientos, null, ['class'=> 'form-control']) !!}
+                                                                        {!! Form::select('establecimientos_id', $establecimientos, null, ['class'=> 'form-control', 'readonly']) !!}
                                                                     </div>
                                                                     @error('establecimientos_id')
                                                                         <strong class="text-danger">{{$message}}</strong>
@@ -282,11 +290,13 @@
                                         </div>
                                     </td>
                                     <td width="10px">
-                                        <form id="formularioEliminacion" action="{{route('admin.reportes.destroy', $reporte)}}" method="POST" onsubmit="confirmarEliminacion(event)">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
-                                        </form>
+                                        @can('admin.reportes.destroy')
+                                            <form id="formularioEliminacion" action="{{route('admin.reportes.destroy', $reporte)}}" method="POST" onsubmit="confirmarEliminacion(event)">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach
@@ -295,6 +305,9 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="card-footer">
+            {{$reportes->links()}}
         </div>
     </div>
         

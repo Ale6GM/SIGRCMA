@@ -14,7 +14,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $usuarios = User::all();
+        $usuarios = User::paginate(10);
         $roles = Role::all();
         return view('admin.usuarios.index', compact('usuarios', 'roles'));
     }
@@ -40,16 +40,16 @@ class UsuarioController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.usuarios.index')
             ->withSuccess(__('Usuario Creado Correctamente'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(User $usuario)
     {
-        //
+        return view('admin.usuarios.show', compact('usuario'));
     }
 
     /**
@@ -67,15 +67,18 @@ class UsuarioController extends Controller
     {
         $usuario->roles()->sync($request->roles);
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.usuarios.index')
             ->withSuccess(__('Usuario Actualizado Correctamente.'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $usuario)
     {
-        //
+        $usuario->delete();
+
+        return redirect()->route('admin.usuarios.index')
+            ->withSuccess(__('Usuario Eliminado Correctamente'));
     }
 }

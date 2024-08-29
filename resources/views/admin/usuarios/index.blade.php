@@ -34,7 +34,7 @@ Listado de Usuarios
                         <th scope="row">{{ $usuario->id }}</th>
                         <td>{{ $usuario->name }}</td>
                         <td>{{ $usuario->email }}</td>
-                        <td><a href="{{ route('users.show', $usuario->id) }}" class="btn btn-warning btn-sm">Ver</a></td>
+                        <td><a href="{{ route('admin.usuarios.show', $usuario) }}" class="btn btn-warning btn-sm">Ver</a></td>
                         <td>
                             <button class="btn btn-info btn-sm" data-bs-target="#editarUsuario{{$usuario->id}}" data-bs-toggle="modal">Editar</button>
                             <div class="modal fade" id="editarUsuario{{$usuario->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
@@ -97,6 +97,9 @@ Listado de Usuarios
                 
             </div>
 
+        </div>
+        <div class="card-footer">
+            {{$usuarios->links()}}
         </div>
     </div>
 </div>
