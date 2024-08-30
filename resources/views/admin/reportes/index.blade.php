@@ -238,7 +238,8 @@
                                                                 <div class="col-4">
                                                                     <div class="form-group">
                                                                         {!! Form::label('clientes_id', 'Cliente') !!}
-                                                                        {!! Form::select('clientes_id', $clientesEdit, null, ['class'=> 'form-control', 'readonly']) !!}
+                                                                        {{-- {!! Form::select('clientes_id', $clientesEdit, null, ['class'=> 'form-control', 'readonly']) !!} --}}
+                                                                        {!! Form::text('clientes_id', $reporte->cliente->nombre, ['class' => 'form-control', 'readonly']) !!}
                                                                     </div>
                                                                     @error('clientes_id')
                                                                         <strong class="text-danger">{{$message}}</strong>
@@ -248,7 +249,8 @@
                                                                 <div class="col-4">
                                                                     <div class="form-group">
                                                                         {!! Form::label('establecimientos_id', 'Local') !!}
-                                                                        {!! Form::select('establecimientos_id', $establecimientos, null, ['class'=> 'form-control', 'readonly']) !!}
+                                                                        {{-- {!! Form::select('establecimientos_id', $establecimientos, null, ['class'=> 'form-control', 'readonly']) !!} --}}
+                                                                        {!! Form::text('establecimientos_id', $reporte->establecimiento->descripcion, ['class' => 'form-control', 'readonly']) !!}
                                                                     </div>
                                                                     @error('establecimientos_id')
                                                                         <strong class="text-danger">{{$message}}</strong>

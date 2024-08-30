@@ -41,13 +41,14 @@ class PermissionsController extends Controller
     public function store(Request $request)
     {   
         $request->validate([
-            'name' => 'required|unique:users,name'
+            'name' => 'required|unique:users,name',
+            'description' => 'required'
         ]);
 
-        Permission::create($request->only('name'));
+        Permission::create($request->all());
 
         return redirect()->route('permissions.index')
-            ->withSuccess(__('Permission created successfully.'));
+            ->withSuccess(__('Permiso Creado Correctamente.'));
     }
 
     /**
@@ -79,7 +80,7 @@ class PermissionsController extends Controller
         $permission->update($request->only('name'));
 
         return redirect()->route('permissions.index')
-            ->withSuccess(__('Permission updated successfully.'));
+            ->withSuccess(__('Permiso Actualizado Correctamente'));
     }
 
     /**
@@ -93,6 +94,6 @@ class PermissionsController extends Controller
         $permission->delete();
 
         return redirect()->route('permissions.index')
-            ->withSuccess(__('Permission deleted successfully.'));
+            ->withSuccess(__('Permiso Eliminado Correctamente'));
     }
 }

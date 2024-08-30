@@ -16,7 +16,9 @@ Lista de Permisos
             </div>
 
             <div class="text-end">
-                <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm float-right">Añadir Permiso</a>
+                @can('permissions.create')
+                    <a href="{{ route('permissions.create') }}" class="btn btn-primary btn-sm float-right">Añadir Permiso</a>
+                @endcan
             </div>
 
             <table class="table table-striped">
@@ -32,15 +34,18 @@ Lista de Permisos
                     <tr>
                         <td>{{ $permission->name }}</td>
                         <td>{{ $permission->guard_name }}</td>
-                        <td><a href="{{ route('permissions.edit', $permission->id) }}"
-                                class="btn btn-info btn-sm">Editar</a></td>
+                        @can('permissions.edit')
+                        <td><a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info btn-sm">Editar</a></td>
+                        @endcan
+                        @can('permissions.destroy')
                         <td>
-                            <form action="{{route('roles.destroy', $permission->id)}}" method="post" onsubmit="confirmarEliminacion(event)">
+                            <form action="{{route('permissions.destroy', $permission)}}" method="post" onsubmit="confirmarEliminacion(event)">
                                 @csrf
                                 @method('delete')
                                 <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
                             </form>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                 </tbody>

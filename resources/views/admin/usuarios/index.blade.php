@@ -16,7 +16,9 @@ Listado de Usuarios
             </div>
 
             <div class="mb-2 text-end">
-                <button class="btn btn-primary btn-sm float-right" data-bs-toggle="modal" data-bs-target="#nuevoUsuario">Nuevo Usuario</button>
+                @can('admin.usuarios.create')
+                    <button class="btn btn-primary btn-sm float-right" data-bs-toggle="modal" data-bs-target="#nuevoUsuario">Nuevo Usuario</button>
+                @endcan
             </div>
 
             <table class="table table-striped">
@@ -34,9 +36,15 @@ Listado de Usuarios
                         <th scope="row">{{ $usuario->id }}</th>
                         <td>{{ $usuario->name }}</td>
                         <td>{{ $usuario->email }}</td>
-                        <td><a href="{{ route('admin.usuarios.show', $usuario) }}" class="btn btn-warning btn-sm">Ver</a></td>
                         <td>
-                            <button class="btn btn-info btn-sm" data-bs-target="#editarUsuario{{$usuario->id}}" data-bs-toggle="modal">Editar</button>
+                            @can('admin.usuarios.show')
+                                <a href="{{ route('admin.usuarios.show', $usuario) }}" class="btn btn-warning btn-sm">Ver</a>
+                            @endcan
+                        </td>
+                        <td>
+                            @can('admin.usuarios.edit')
+                                <button class="btn btn-info btn-sm" data-bs-target="#editarUsuario{{$usuario->id}}" data-bs-toggle="modal">Editar</button>
+                            @endcan
                             <div class="modal fade" id="editarUsuario{{$usuario->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
                                     <div class="modal-content">
@@ -82,11 +90,13 @@ Listado de Usuarios
                             </div>
                         </td>
                         <td>
-                            <form action="{{route('admin.usuarios.destroy', $usuario->id)}}" method="post" onsubmit="confirmarEliminacion(event)">
-                                @csrf
-                                @method('delete')
-                                <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
-                            </form>
+                            @can('admin.usuarios.destroy')
+                                <form action="{{route('admin.usuarios.destroy', $usuario->id)}}" method="post" onsubmit="confirmarEliminacion(event)">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
+                                </form>
+                            @endcan
                         </td>
                     </tr>
                     @endforeach

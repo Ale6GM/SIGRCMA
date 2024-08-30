@@ -230,6 +230,7 @@
                                  <th>Local</th>
                                  <th>Estado Local</th>
                                  <th>Tecnico</th>
+                                 <th>Detalles</th>
                               </tr>
                            </thead>
                            <tbody>
@@ -243,6 +244,105 @@
                                     <td>{{$ereporte->establecimiento->descripcion}}</td>
                                     <td>{{$ereporte->establecimiento->estado->descripcion}}</td>
                                     <td>{{$ereporte->tecnico->nombre}} {{$ereporte->tecnico->primer_apellido}} {{$ereporte->tecnico->segundo_apellido}}</td>
+                                    <td>
+                                       @can('admin.reportes.show')
+                                            <button class="btn btn-success btn-sm" data-bs-target="#verReporte{{$ereporte->id}}" data-bs-toggle="modal">Detalles</button>
+                                        @endcan
+
+                                        {{-- Modal para ver los detalles del reporte --}}
+                                        <div class="modal fade" id="verReporte{{$ereporte->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="modalTitleId">
+                                                            Detalles del Reporte {{$ereporte->id}}
+                                                        </h5>
+                                                        <button
+                                                            type="button"
+                                                            class="btn-close"
+                                                            data-bs-dismiss="modal"
+                                                            aria-label="Close"
+                                                        ></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-2 mb-2">
+                                                                <h5 class="fw-bold">No. Rep: </h5>
+                                                                <p>{{$ereporte->id}}</p>
+                                                            </div>
+                                                            <div class="col-3 mb-2">
+                                                                <h5 class="fw-bold">Fecha de Inicio: </h5>
+                                                                <p>{{$ereporte->fecha_inicio}}</p>
+                                                            </div>
+
+                                                            <div class="col-3 mb-2">
+                                                                <h5 class="fw-bold">Fecha de Cierre: </h5>
+                                                                <p>{{$ereporte->fecha_cierre}}</p>
+                                                            </div>
+
+                                                            <div class="col-4 mb-2">
+                                                                <h5 class="fw-bold">Estado Reporte: </h5>
+                                                                <p>{{$ereporte->repestado->descripcion}}</p>
+                                                            </div>
+
+                                                            <div class="col-2 mb-2">
+                                                                <h5 class="fw-bold">Cliente: </h5>
+                                                                <p>{{$ereporte->cliente->nombre}}</p>
+                                                            </div>
+
+                                                            <div class="col-3 mb-2">
+                                                                <h5 class="fw-bold">Local: </h5>
+                                                                <p>{{$ereporte->establecimiento->descripcion}}</p>
+                                                            </div>
+
+                                                            <div class="col-3 mb-2">
+                                                                <h5 class="fw-bold">Estado Local: </h5>
+                                                                <p>{{$ereporte->establecimiento->estado->descripcion}}</p>
+                                                            </div>
+
+                                                            <div class="col-4 mb-2">
+                                                                <h5 class="fw-bold">Técnico: </h5>
+                                                                <p>{{$ereporte->tecnico->nombre}} {{$ereporte->tecnico->primer_apellido}} {{$ereporte->tecnico->segundo_apellido}}</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="card">
+                                                                <div class="card-header text-center">
+                                                                    <h5 class="fw-bold">Trabajos Realizados</h5>
+                                                                </div>
+                                                                <div class="card-body">
+                                                                    <table class="table table-striped">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th class="fw-bold">Fecha</th>
+                                                                                <th class="fw-bold">Descripcion del Trabajo</th>
+                                                                                <th>Usuario</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            @foreach ($ereporte->trabajos as $trabajo)
+                                                                                <tr>
+                                                                                    <td>{{$trabajo->fecha}}</td>
+                                                                                    <td>{{$trabajo->descripcion}}</td>
+                                                                                    <td>{{auth()->user()->name}}</td>
+                                                                                </tr>
+                                                                            @endforeach
+                                                                        </tbody>
+                                                    
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                            Cerrar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
                                   </tr>
                               @endforeach
                            </tbody>

@@ -16,7 +16,9 @@ Lista de Roles
             </div>
 
             <div class="mb-2 text-end">
-                <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right">Añadir Rol</a>
+                @can('roles.create')
+                    <a href="{{ route('roles.create') }}" class="btn btn-primary btn-sm float-right">Añadir Rol</a>
+                @endcan
             </div>
 
             <table class="table table-striped">
@@ -36,17 +38,23 @@ Lista de Roles
                         @endforeach
                     </td>
                     <td>
-                        <a class="btn btn-info btn-sm" href="{{ route('roles.show', $role->id) }}">Ver</a>
+                        @can('roles.show')
+                            <a class="btn btn-info btn-sm" href="{{ route('roles.show', $role->id) }}">Ver</a>
+                        @endcan
                     </td>
                     <td>
-                        <a class="btn btn-primary btn-sm" href="{{ route('roles.edit', $role->id) }}">Editar</a>
+                        @can('roles.edit')
+                            <a class="btn btn-primary btn-sm" href="{{ route('roles.edit', $role->id) }}">Editar</a>
+                        @endcan
                     </td>
                     <td>
-                        <form action="{{route('roles.destroy', $role->id)}}" method="post" onsubmit="confirmarEliminacion(event)">
-                            @csrf
-                            @method('delete')
-                            <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
-                        </form>
+                        @can('roles.destroy')
+                            <form action="{{route('roles.destroy', $role->id)}}" method="post" onsubmit="confirmarEliminacion(event)">
+                                @csrf
+                                @method('delete')
+                                <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
+                            </form>
+                        @endcan
                     </td>
                 </tr>
                 @endforeach

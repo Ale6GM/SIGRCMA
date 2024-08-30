@@ -70,7 +70,11 @@ class ReporteController extends Controller
      */
     public function update(Request $request, Reporte $reporte)
     {
-        $reporte->update($request->all());
+        $reporte->update([
+            'fecha_cierre' => $request->fecha_cierre,
+            'repestado_id' => $request->repestado_id,
+            'tecnicos_id' => $request->tecnicos_id
+        ]);
 
         return redirect()->route('admin.reportes.index')->with('info', 'El reporte ha sido Correctamente Actualizado');
     }

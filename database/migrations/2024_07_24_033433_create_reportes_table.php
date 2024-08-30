@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('repestado_id')->constrained('repestados');
             $table->foreignId('clientes_id')->constrained('clientes');
             $table->foreignId('establecimientos_id')->constrained('establecimientos');
-            $table->foreignId('tecnicos_id')->constrained('tecnicos');
+            $table->foreignId('tecnicos_id')->constrained('tecnicos')->nullable();
             
             
             $table->foreignId('user_id')->constrained('users');

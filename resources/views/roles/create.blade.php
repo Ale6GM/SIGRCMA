@@ -41,8 +41,8 @@ Crear Rol
                             @endforeach
                         </table>
 
-                        <button type="submit" class="btn btn-primary">Guardar Usuario</button>
-                        <a href="{{ route('users.index') }}" class="btn btn-default">Atras</a>
+                        <button type="submit" class="btn btn-primary">Guardar Rol</button>
+                        <a href="{{ route('roles.index') }}" class="btn btn-default">Atras</a>
                     </form>
                 </div>
 

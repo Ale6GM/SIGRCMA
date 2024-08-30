@@ -52,7 +52,7 @@
     <div class="col-sm-3 col-lg-5">
         <div class="card mb-4 alertas">
             <div class="card-body">
-                <div class="fs-4 fw-semibold">Clientes</div>
+                <a href="{{route('admin.clientes.index')}}" class="text-dark" style="text-decoration: none"><div class="fs-4 fw-semibold">Clientes</div></a>
                 <div>{{$cantidadClientes}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -62,7 +62,7 @@
 
         <div class="card mb-4 alertas">
             <div class="card-body">
-                <div class="fs-4 fw-semibold">Establecimientos</div>
+                <a href="{{route('admin.establecimientos.index')}}" class="text-dark" style="text-decoration: none"><div class="fs-4 fw-semibold">Establecimientos</div></a>
                 <div>{{$cantidadEstablecimientos}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -72,7 +72,7 @@
 
         <div class="card mb-4 alertas">
             <div class="card-body">
-                <div class="fs-4 fw-semibold">Técnicos</div>
+                <a href="{{route('admin.tecnicos.index')}}" class="text-dark" style="text-decoration: none"><div class="fs-4 fw-semibold">Técnicos</div></a>
                 <div>{{$cantidadTecnicos}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
@@ -81,13 +81,15 @@
         </div>
 
         <div class="card mb-4 alertas">
+            @can('admin.usuarios.index')
             <div class="card-body">
-                <div class="fs-4 fw-semibold">Usuarios</div>
+                <a href="{{route('admin.usuarios.index')}}" class="text-dark" style="text-decoration: none"><div class="fs-4 fw-semibold">Usuarios</div></a>
                 <div>{{$cantidadUsuarios}}</div>
                 <div class="progress progress-thin my-2">
                     <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                 </div><small class="text-medium-emphasis">Cantidad de Usuarios registrados</small>
             </div>
+            @endcan
         </div>
     </div>
     <div class="col-sm-3 col-lg-7">
