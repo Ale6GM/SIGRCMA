@@ -9,12 +9,19 @@ use App\Models\Establecimiento;
 use App\Models\Reporte;
 use App\Models\Tecnico;
 use App\Models\Repestado;
-use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ReporteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.reportes.index')->only('index');
+        $this->middleware('can:admin.reportes.create')->only('create', 'store');
+        $this->middleware('can:admin.reportes.edit')->only('edit', 'update');
+        $this->middleware('can:admin.reportes.destroy')->only('destroy');
+        $this->middleware('can:exportar_reportes')->only('exportarReportes');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -31,14 +38,6 @@ class ReporteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreReportesRequest $request)
@@ -47,22 +46,6 @@ class ReporteController extends Controller
         $reportes = Reporte::create($request->all());
 
         return redirect()->route('admin.reportes.index')->with('info', 'El Reporte ha sido agregado correctamente...');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reporte $reporte)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Reporte $reporte)
-    {
-        //
     }
 
     /**

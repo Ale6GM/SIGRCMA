@@ -52,6 +52,9 @@ Lista de Permisos
             </table>
 
         </div>
+        <div class="card-footer">
+            {{$permissions->links()}}
+        </div>
     </div>
 </div>
 @endsection

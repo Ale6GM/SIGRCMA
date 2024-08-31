@@ -9,6 +9,14 @@ use Spatie\Permission\Models\Role;
 
 class UsuarioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.usuarios.index')->only('index');
+        $this->middleware('can:admin.usuarios.create')->only('create', 'store');
+        $this->middleware('can:admin.usuarios.show')->only('show');
+        $this->middleware('can:admin.usuarios.edit')->only('edit', 'update');
+        $this->middleware('can:admin.usuarios.destroy')->only('destroy');
+    } 
     /**
      * Display a listing of the resource.
      */
@@ -19,13 +27,6 @@ class UsuarioController extends Controller
         return view('admin.usuarios.index', compact('usuarios', 'roles'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -50,14 +51,6 @@ class UsuarioController extends Controller
     public function show(User $usuario)
     {
         return view('admin.usuarios.show', compact('usuario'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
     }
 
     /**

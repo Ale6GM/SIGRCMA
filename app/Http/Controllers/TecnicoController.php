@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 
 class TecnicoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.tecnicos.index')->only('index');
+        $this->middleware('can:admin.tecnicos.create')->only('create', 'store');
+        $this->middleware('can:admin.tecnicos.edit')->only('edit', 'update');
+        $this->middleware('can:admin.tecnicos.destroy')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -16,15 +23,6 @@ class TecnicoController extends Controller
         $tecnicos = Tecnico::all();
         return view('admin.tecnicos.index', compact('tecnicos'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -33,22 +31,6 @@ class TecnicoController extends Controller
         $tecnicos = Tecnico::create($request->all());
 
         return redirect()->route('admin.tecnicos.index')->with('info', 'El Técnico ha sido Agregado Correctamente');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tecnico $tecnico)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tecnico $tecnico)
-    {
-        //
     }
 
     /**

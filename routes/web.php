@@ -42,13 +42,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          * Home Routes
          */
         Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('dashboard');
-        Route::resource('clientes', ClienteController::class)->names('admin.clientes');
-        Route::resource('establecimientos', EstablecimientoController::class)->names('admin.establecimientos');
-        Route::resource('tecnicos', TecnicoController::class)->names('admin.tecnicos');
-        Route::resource('reportes', ReporteController::class)->names('admin.reportes');
-        Route::resource('trabajos', TrabajoController::class)->names('admin.trabajos');
-        Route::resource('estadisticas', EstadisticaController::class)->names('admin.estadisticas');
-        Route::resource('usuarios', UsuarioController::class)->names('admin.usuarios');
+        Route::resource('clientes', ClienteController::class)->only(['index', 'store', 'update', 'destroy', 'establecimientos', 'exportarCliente'])->names('admin.clientes');
+        Route::resource('establecimientos', EstablecimientoController::class)->only(['index', 'store', 'update', 'destroy', 'exportarLocal'])->names('admin.establecimientos');
+        Route::resource('tecnicos', TecnicoController::class)->only(['index', 'store', 'update', 'destroy'])->names('admin.tecnicos');
+        Route::resource('reportes', ReporteController::class)->only(['index', 'store', 'update', 'destroy', 'exportarReportes'])->names('admin.reportes');
+        Route::resource('trabajos', TrabajoController::class)->only('store')->names('admin.trabajos');
+        Route::resource('estadisticas', EstadisticaController::class)->only('index')->names('admin.estadisticas');
+        Route::resource('usuarios', UsuarioController::class)->only(['index', 'store', 'show', 'update', 'destroy'])->names('admin.usuarios');
 
         /* Rutas de Exportacion Globales */
 

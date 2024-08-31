@@ -10,6 +10,14 @@ use App\Http\Requests\StoreClienteRequest;
 
 class ClienteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.clientes.index')->only('index');
+        $this->middleware('can:admin.clientes.create')->only('create', 'store');
+        $this->middleware('can:admin.clientes.edit')->only('edit', 'update');
+        $this->middleware('can:admin.clientes.destroy')->only('destroy');
+        $this->middleware('can:exportar_clientes')->only('exportarCliente');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -20,14 +28,6 @@ class ClienteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreClienteRequest $request)
@@ -35,22 +35,6 @@ class ClienteController extends Controller
         $clientes = Cliente::create($request->all());
 
         return redirect()->route('admin.clientes.index')->with('info' , 'El cliente ha sido agregado Correctamente');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Cliente $cliente)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Cliente $cliente)
-    {
-        //
     }
 
     /**

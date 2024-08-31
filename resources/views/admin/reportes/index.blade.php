@@ -119,56 +119,59 @@
                                                                 <p>{{$reporte->tecnico->nombre}} {{$reporte->tecnico->primer_apellido}} {{$reporte->tecnico->segundo_apellido}}</p>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="card">
-                                                                <div class="card-header text-center">
-                                                                    <h5 class="fw-bold">Trabajos Realizados</h5>
-                                                                </div>
-                                                                <div class="card-body">
-                                                                    <table class="table table-striped">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th class="fw-bold">Fecha</th>
-                                                                                <th class="fw-bold">Descripcion del Trabajo</th>
-                                                                                <th>Usuario</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            @foreach ($reporte->trabajos as $trabajo)
+                                                        @can('admin.trabajos.index')
+                                                            <div class="row">
+                                                                <div class="card">
+                                                                    <div class="card-header text-center">
+                                                                        <h5 class="fw-bold">Trabajos Realizados</h5>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <table class="table table-striped">
+                                                                            <thead>
                                                                                 <tr>
-                                                                                    <td>{{$trabajo->fecha}}</td>
-                                                                                    <td>{{$trabajo->descripcion}}</td>
-                                                                                    <td>{{auth()->user()->name}}</td>
+                                                                                    <th class="fw-bold">Fecha</th>
+                                                                                    <th class="fw-bold">Descripcion del Trabajo</th>
+                                                                                    <th>Usuario</th>
                                                                                 </tr>
-                                                                            @endforeach
-                                                                        </tbody>
-                                                    
-                                                                    </table>
-                                                                </div>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @foreach ($reporte->trabajos as $trabajo)
+                                                                                    <tr>
+                                                                                        <td>{{$trabajo->fecha}}</td>
+                                                                                        <td>{{$trabajo->descripcion}}</td>
+                                                                                        <td>{{auth()->user()->name}}</td>
+                                                                                    </tr>
+                                                                                @endforeach
+                                                                            </tbody>
+                                                        
+                                                                        </table>
+                                                                    </div>
+                                                                </div>                                                           
                                                             </div>
-                                                            
-                                                        </div>
+                                                        @endcan
                                                 
-                                                        <div class="row mt-2">
-                                                            <h5 class="text-center fw-bold mb-1">Insertar Trabajos</h5>
-                                                            <form action="{{route('admin.trabajos.store')}}" method="POST">
-                                                                @csrf
-                                                                <input type="hidden" name="reporte" value="{{$reporte->id}}">
-                                                                <div class="col">
-                                                                    <div class="form-group">
-                                                                        <label for="">Fecha de Realizacion</label>
-                                                                        <input type="date" name="fecha" class="form-control">
+                                                        @can('admin.trabajos.create')
+                                                            <div class="row mt-2">
+                                                                <h5 class="text-center fw-bold mb-1">Insertar Trabajos</h5>
+                                                                <form action="{{route('admin.trabajos.store')}}" method="POST">
+                                                                    @csrf
+                                                                    <input type="hidden" name="reporte" value="{{$reporte->id}}">
+                                                                    <div class="col">
+                                                                        <div class="form-group">
+                                                                            <label for="">Fecha de Realizacion</label>
+                                                                            <input type="date" name="fecha" class="form-control">
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <div class="form-group">
-                                                                        <label for="">Trabajo Realizado</label>
-                                                                        <textarea name="descripcion" cols="10" rows="5" class="form-control"></textarea>
+                                                                    <div class="col">
+                                                                        <div class="form-group">
+                                                                            <label for="">Trabajo Realizado</label>
+                                                                            <textarea name="descripcion" cols="10" rows="5" class="form-control"></textarea>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <button type="submit" class="mt-2 btn btn-success">Agregar Trabajo</button>
-                                                            </form>
-                                                        </div>                                                       
+                                                                    <button type="submit" class="mt-2 btn btn-success">Agregar Trabajo</button>
+                                                                </form>
+                                                            </div>                                                       
+                                                        @endcan
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

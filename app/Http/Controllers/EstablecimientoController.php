@@ -12,6 +12,14 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class EstablecimientoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:admin.establecimientos.index')->only('index');
+        $this->middleware('can:admin.establecimientos.create')->only('create', 'store');
+        $this->middleware('can:admin.establecimientos.edit')->only('edit', 'update');
+        $this->middleware('can:admin.establecimientos.destroy')->only('destroy');
+        $this->middleware('can:exportar_locales')->only('exportarLocal');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -22,15 +30,6 @@ class EstablecimientoController extends Controller
         $establecimientos = Establecimiento::with(['cliente', 'estado'])->get();
         return view('admin.establecimientos.index', compact('establecimientos','clientes', 'esestados'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -39,22 +38,6 @@ class EstablecimientoController extends Controller
         $establecimientos = Establecimiento::create($request->all());
 
         return redirect()->route('admin.establecimientos.index')->with('info', 'El Local ha sido agregado correctamente');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Establecimiento $establecimiento)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Establecimiento $establecimiento)
-    {
-        //
     }
 
     /**

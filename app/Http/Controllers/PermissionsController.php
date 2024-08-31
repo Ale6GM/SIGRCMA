@@ -8,6 +8,14 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:permissions.create')->only('create', 'store');
+        $this->middleware('can:permissions.index')->only('index');
+        $this->middleware('can:permissions.show')->only('show');
+        $this->middleware('can:permissions.edit')->only('edit', 'update');
+        $this->middleware('can:permissions.destroy')->only('destroy');
+    } 
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +23,7 @@ class PermissionsController extends Controller
      */
     public function index()
     {   
-        $permissions = Permission::all();
+        $permissions = Permission::paginate();
 
         return view('permissions.index', [
             'permissions' => $permissions
