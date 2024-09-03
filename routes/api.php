@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\ReporteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/clientes/{cliente}/establecimientos', [ClienteController::class, 'establecimientos']);
+
+Route::get('getReportes', [ReporteController::class, 'getReportes'])->name('getReportes');

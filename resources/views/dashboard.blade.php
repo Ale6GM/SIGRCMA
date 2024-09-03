@@ -49,7 +49,7 @@
     <!-- /.col-->
 </div>
 <div class="row">
-    <div class="col-sm-3 col-lg-5">
+    <div class="col-sm-3 col-lg-3">
         <div class="card mb-4 alertas">
             <div class="card-body">
                 <a href="{{route('admin.clientes.index')}}" class="text-dark" style="text-decoration: none"><div class="fs-4 fw-semibold">Clientes</div></a>
@@ -92,7 +92,7 @@
             @endcan
         </div>
     </div>
-    <div class="col-sm-3 col-lg-7">
+    <div class="col-sm-3 col-lg-9">
         <div class="card">
             <div class="card-header text-bg-dark">
                 <h5>Panel de Generador de Graficos</h5>
@@ -101,19 +101,31 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-4">
-                        <h6>Selector de Gráfico</h6>
-                        <div>
-                            <select id="selectorGrafico1" class="form-control">
-                                <option value="polarArea">Area Polar</option>
-                                <option value="bar">Barra</option>
-                                <option value="doughnut">Dona</option>                                
-                                <option value="radar">Radar</option>
-                                <option value="line">Linea</option>
-                                <option value="pie">Pastel</option>    
-                            </select>
+                        <div class="col mb-3">
+                            <h6>Selector de Gráfico</h6>
+                            <div>
+                                <select id="selectorGrafico1" class="form-control">
+                                    <option value="polarArea">Area Polar</option>
+                                    <option value="bar">Barra</option>
+                                    <option value="doughnut">Dona</option>                                
+                                    <option value="radar">Radar</option>
+                                    <option value="line">Linea</option>
+                                    <option value="pie">Pastel</option>    
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col">
+                        <div class="col">
+                            <h6>Selector de Datos</h6>
+                            <div>
+                                <select id="selectorDatos" class="form-control">
+                                    <option value="rClientes">Reportes por Clientes</option>
+                                    <option value="rEstado">Reportes Por Estado</option>
+                                    <option value="rYear">Reportes por Año</option>  
+                                </select>
+                            </div>
+                        </div>
+                    </div>                    
+                    <div class="col-8">
                         <canvas style="max-width: 700px; max-height: 500px;" id="grafico"></canvas>
                     </div>
                 </div>
@@ -164,15 +176,4 @@
         </div>
     </div>
     
-</div>
-<div class="row">
-    <div class="card">
-        @can('dashboard')
-            <h1>Tienes el rol del tablero</h1>
-        @endcan
-
-        @can('admin.usuarios.create')
-            <h1>tienes el permiso de crear usuarios</h1>
-        @endcan
-    </div>
 </div>

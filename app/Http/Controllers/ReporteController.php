@@ -76,4 +76,10 @@ class ReporteController extends Controller
     public function exportarReportes() {
         return Excel::download(new ExportReportes, 'Reportes.xlsx');
     }
+
+    public function getReportes() {
+        $reportes = Reporte::with(['cliente', 'establecimiento', 'tecnico', 'repestado'])->get();
+
+        return response()->json($reportes);
+    }
 }
