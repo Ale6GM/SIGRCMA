@@ -23,6 +23,8 @@ class StoreReportesRequest extends FormRequest
     {
         return [
             'fecha_inicio' => 'required',
+            'clientes_id' => 'required',
+            'establecimientos_id' => 'required'
         ];
     }
 
@@ -30,6 +32,8 @@ class StoreReportesRequest extends FormRequest
     {
         return [
             'fecha_inicio.required' => 'La fecha de Inicio es Requerida',
+            'clientes_id.required' => 'El Cliente es Requerido',
+            'establecimientos_id.required' => 'El Local es Requerido', 
         ];
     }
 }

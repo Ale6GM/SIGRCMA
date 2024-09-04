@@ -118,6 +118,7 @@
                             <h6>Selector de Datos</h6>
                             <div>
                                 <select id="selectorDatos" class="form-control">
+                                    <option value="">Seleccione los Datos a Graficar</option>
                                     <option value="rClientes">Reportes por Clientes</option>
                                     <option value="rEstado">Reportes Por Estado</option>
                                     <option value="rYear">Reportes por Año</option>  
@@ -132,7 +133,7 @@
                 
             </div>
             <div class="card-footer">
-                <button class="btn btn-success">Exportar a PNG</button>
+                <button class="btn btn-success" id="btnExport">Exportar a PNG</button>
             </div>
         </div>
         

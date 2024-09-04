@@ -16,8 +16,7 @@ Crear Rol
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre</label>
-                            <input value="{{ old('name') }}" type="text" class="form-control" name="name"
-                                placeholder="Name" required>
+                            <input value="{{ old('name') }}" type="text" class="form-control" name="name" placeholder="Nombre" required>
                         </div>
 
                         <label for="permissions" class="form-label">Asignacion de Permisos</label>

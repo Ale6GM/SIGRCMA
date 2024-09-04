@@ -136,7 +136,7 @@ Listado de Usuarios
                     <svg class="icon">
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
                     </svg></span>
-                    {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el Nombre']) !!}
+                    {!! Form::text('first_name', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el Nombre', 'required']) !!}
 
                     @error('first_name')
                         <strong class="text-danger">{{$message}}</strong>
@@ -147,7 +147,7 @@ Listado de Usuarios
                     <svg class="icon">
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-user') }}"></use>
                     </svg></span>
-                    {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Ingrese los Apellidos']) !!}
+                    {!! Form::text('last_name', null, ['class'=>'form-control', 'placeholder'=>'Ingrese los Apellidos', 'required']) !!}
 
                     @error('last_name')
                         <strong class="text-danger">{{$message}}</strong>
@@ -158,7 +158,7 @@ Listado de Usuarios
                     <svg class="icon">
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-envelope-open') }}"></use>
                     </svg></span>
-                    {!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el Email']) !!}
+                    {!! Form::text('email', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el Email', 'required']) !!}
                     @error('email')
                         <strong class="text-danger">{{$message}}</strong>
                     @enderror
@@ -168,7 +168,7 @@ Listado de Usuarios
                     <svg class="icon">
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
                     </svg></span>
-                    {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Ingrese la contraseña']) !!}
+                    {!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'Ingrese la contraseña', 'required']) !!}
                     @error('password')
                         <strong class="text-danger">{{$message}}</strong>
                     @enderror
@@ -178,7 +178,7 @@ Listado de Usuarios
                     <svg class="icon">
                       <use xlink:href="{{ asset('icons/coreui.svg#cil-lock-locked') }}"></use>
                     </svg></span>
-                    {!! Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Confirme la contraseña']) !!}
+                    {!! Form::password('password_confirmation',['class'=>'form-control', 'placeholder'=>'Confirme la contraseña', 'required']) !!}
                     @error('password')
                         <strong class="text-danger">{{$message}}</strong>
                     @enderror
