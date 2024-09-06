@@ -16,9 +16,11 @@
         </div>
         <div class="card-body">
             <div class="row">
+                @can('admin.tecnicos.create')
                 <div class="col-4">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoCliente">Nuevo Técnico</button>
                 </div>
+                @endcan
             </div>
 
             <div class="row">
@@ -41,7 +43,9 @@
                                     <td>{{$tecnico->primer_apellido}}</td>
                                     <td>{{$tecnico->segundo_apellido}}</td>
                                     <td width="10px">
+                                        @can('admin.tecnicos.edit')
                                         <button class="btn btn-primary btn-sm" data-bs-target="#editarTecnico{{$tecnico->id}}" data-bs-toggle="modal">Editar</button>
+                                        @endcan
                                         {{-- Modal para la Ediacion del Cliente --}}
                                         <div class="modal fade" id="editarTecnico{{$tecnico->id}}" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
@@ -107,11 +111,13 @@
                                         </div>
                                     </td>
                                     <td width="10px">
-                                        <form id="formularioEliminacion" action="{{route('admin.tecnicos.destroy', $tecnico)}}" method="post" onsubmit="confirmarEliminacion(event)">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
-                                        </form>
+                                        @can('admin.tecnicos.destroy')
+                                            <form id="formularioEliminacion" action="{{route('admin.tecnicos.destroy', $tecnico)}}" method="post" onsubmit="confirmarEliminacion(event)">
+                                                @csrf
+                                                @method('delete')
+                                                <input type="submit" class="btn btn-danger btn-sm" value="Eliminar">
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

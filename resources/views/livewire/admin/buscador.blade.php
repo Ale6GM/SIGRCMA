@@ -20,7 +20,7 @@
 
             <div class="row">
                 <div class="mt-2">
-                    <input wire:model.live="search" type="text" class="form-control" placeholder="Busque por Numero de Reporte, Cliente o Local">
+                    <input wire:model.live="search" type="text" class="form-control" placeholder="Busque por Número de Reporte">
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped">
